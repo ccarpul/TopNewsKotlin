@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textview_values_filters"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableStart="@drawable/ic_launcher_foreground"
+    android:ellipsize="marquee"
+    android:paddingLeft="@dimen/padding_scrollview"
+    android:paddingRight="@dimen/padding_scrollview"
+    android:singleLine="true"
+    android:textSize="@dimen/textsize_spinner_filter"
+    android:textStyle="bold"
+    tools:text="item Spinner"
+    android:gravity="center_vertical"
+    />

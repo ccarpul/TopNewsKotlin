@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="width_spinner_filter">90dp</dimen>
+    <dimen name="padding_spinner_filter">2dp</dimen>
+
+    <dimen name="width_edit_key_word">80dp</dimen>
+    <dimen name="textsize_spinner_filter">20sp</dimen>
+    <dimen name="margin_top_spinner">5dp</dimen>
+    <dimen name="width_image_spinner">25dp</dimen>
+    <dimen name="height_image_spinner">25dp</dimen>
+
+
+    <dimen name="height_head_navigation_drawer">160dp</dimen>
+    <dimen name="padding_layout_navigation_drawer">20dp</dimen>
+    <dimen name="margin_top_layout_navigation_drawer">140dp</dimen>
+    <dimen name="height_fields_navigation_drawer">50dp</dimen>
+
+    <dimen name="padding_scrollview">10dp</dimen>
+    <dimen name="padding_scrollview_selected_article">10dp</dimen>
+</resources>
