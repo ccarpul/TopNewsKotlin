@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TopNewsMvvmKotlin</string>
     <string name="top_news">Top News</string>
+    <string name="title_name">Top News</string>
 </resources>

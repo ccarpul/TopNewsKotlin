@@ -28,7 +28,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tool:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/article_id"
@@ -78,7 +79,7 @@
             app:layout_constraintBottom_toTopOf="@+id/description"
             app:layout_constraintStart_toEndOf="@+id/urlToImage"
             app:layout_constraintTop_toTopOf="parent"
-            tool:text="Title" />
+            tool:text="Title"/>
 
         <TextView
             android:id="@+id/description"
