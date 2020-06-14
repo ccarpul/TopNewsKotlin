@@ -12,6 +12,6 @@
     android:singleLine="true"
     android:textSize="@dimen/textsize_spinner_filter"
     android:textStyle="bold"
-    tools:text="item Spinner"
     android:gravity="center_vertical"
+    tools:text="item Spinner"
     />

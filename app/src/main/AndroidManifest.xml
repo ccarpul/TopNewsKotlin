@@ -14,7 +14,7 @@
         android:name=".ui.TopNewsApp">
         <activity android:name=".ui.browser.WebActivity"/>
 
-        <activity android:name=".ui.home.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

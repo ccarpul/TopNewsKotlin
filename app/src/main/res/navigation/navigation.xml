@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigationView"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.topnewsmvvmkotlin.ui.home.HomeFragment"
+        android:label="FragmentHome"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_filterFragment"
+            app:destination="@id/filtersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filtersFragment"
+        android:name="com.example.topnewsmvvmkotlin.ui.filters.FiltersFragment"
+        android:label="FragmentFilter"
+        tools:layout="@layout/fragment_filters" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.topnewsmvvmkotlin.ui.about.AboutFragment"
+        android:label="FragmentAbout"
+        tools:layout="@layout/fragment_about" />
+</navigation>

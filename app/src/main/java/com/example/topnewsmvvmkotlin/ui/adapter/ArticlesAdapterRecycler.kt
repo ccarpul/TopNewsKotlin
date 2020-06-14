@@ -1,7 +1,5 @@
 package com.example.topnewsmvvmkotlin.ui.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,7 @@ class ArticlesAdapterRecyclerView(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_style, parent, false)
+            .inflate(R.layout.recycler_style,  parent, false)
         return ArticlesAdapterViewHolder(view)
     }
 
