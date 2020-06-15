@@ -6,10 +6,10 @@ import com.example.topnewsmvvmkotlin.util.Constants
 
 class HomeRepository(private val newsApiClient: NewsApiClient) {
 
-    suspend fun getArticles(): ModelResponse {
+    suspend fun getArticles(page: Int): ModelResponse {
 
-        return newsApiClient.getArticles(
-            1, Constants.PAGESIZE, Constants.KEYWORD_INIT, Constants.COUNTRY_INIT,
+        val rPage =  page
+        return newsApiClient.getArticles(rPage, Constants.PAGESIZE, Constants.KEYWORD_INIT, Constants.COUNTRY_INIT,
             Constants.CATEGORY_INIT, Constants.SOURCE_INIT, Constants.LANGUAGE_INIT
         )
     }

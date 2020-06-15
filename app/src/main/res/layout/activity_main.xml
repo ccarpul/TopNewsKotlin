@@ -27,15 +27,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/navBottom"
+        app:layout_constraintBottom_toTopOf="@+id/navBottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:navGraph="@navigation/navigation"
+        app:navGraph="@navigation/navgraph"
         tools:layout="@layout/navigationdrawer_body"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navBottom"
+        android:id="@+id/navBottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

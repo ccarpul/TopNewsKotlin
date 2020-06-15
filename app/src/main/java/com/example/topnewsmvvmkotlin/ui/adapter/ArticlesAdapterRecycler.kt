@@ -1,5 +1,7 @@
 package com.example.topnewsmvvmkotlin.ui.adapter
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +16,7 @@ class ArticlesAdapterRecyclerView(
     private val list: MutableList<Article>,
     private val listener: OnClickSelectedItem
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var originalList = mutableListOf<Article>()
+    //private var originalList = mutableListOf<Article>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,19 +26,22 @@ class ArticlesAdapterRecyclerView(
 
     fun addData(data: ModelResponse) {
         list.addAll(data.articles)
-        originalList.addAll(list)
+        Log.i(TAG, "addData: ${list.size}" )
+        //originalList.addAll(list)
         notifyDataSetChanged()
     }
 
     fun getList(): MutableList<Article> = list
 
-    fun getOriginalList(): MutableList<Article> = originalList
+    //fun getOriginalList(): MutableList<Article> = originalList
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ArticlesAdapterViewHolder)
+        if (holder is ArticlesAdapterViewHolder){
             holder.bind(list[position])
+        }
+
     }
 
     interface OnClickSelectedItem {

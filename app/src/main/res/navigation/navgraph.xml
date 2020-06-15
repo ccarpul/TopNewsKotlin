@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigationView"
@@ -11,19 +12,28 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_filterFragment"
-            app:destination="@id/filtersFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:popUpTo="@id/filtersFragment"
+            app:launchSingleTop="true"/>
     </fragment>
     <fragment
         android:id="@+id/filtersFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.filters.FiltersFragment"
         android:label="FragmentFilter"
-        tools:layout="@layout/fragment_filters" />
+        tools:layout="@layout/fragment_filters" >
+        <action
+            android:id="@+id/action_filtersFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:launchSingleTop="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.about.AboutFragment"
         android:label="FragmentAbout"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_homeFragment"
+            app:popUpTo="@id/homeFragment"
+           />
+    </fragment>
 </navigation>

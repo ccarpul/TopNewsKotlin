@@ -74,7 +74,7 @@
         tools:listitem="@layout/spinner_style"/>
 
     <ImageView
-        android:id="@+id/button_search"
+        android:id="@+id/buttonSetupFilters"
         android:layout_width="86dp"
         android:layout_height="52dp"
         android:layout_margin="@dimen/padding_layout_navigation_drawer"

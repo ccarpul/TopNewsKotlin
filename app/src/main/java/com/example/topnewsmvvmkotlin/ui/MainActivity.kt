@@ -2,14 +2,13 @@ package com.example.topnewsmvvmkotlin.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.topnewsmvvmkotlin.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_web.*
+import kotlin.concurrent.fixedRateTimer
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +17,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val navController = findNavController(R.id.navHostFragment)
-        navBottom.setupWithNavController(navController)
+        navBottomNavigation.setupWithNavController(navController)
     }
 }
