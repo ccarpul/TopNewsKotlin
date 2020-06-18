@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
+import com.example.topnewsmvvmkotlin.util.Constants
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.log
@@ -13,7 +14,8 @@ import kotlin.math.log
 class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), CoroutineScope {
 
     private var job: Job = Job()
-    private var page = 1
+    var page = 1
+    var queryFilters = arrayOf<String>()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job //Sobreesribiendo la variable coroutineContext para usar la
@@ -33,7 +35,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     fun getDataArticles(page: Int) {
         launch {
-            uiDataArticles.value = homeRepository.getArticles(page)
+            uiDataArticles.value = homeRepository.getArticles(page, queryFilters)
         }
     }
 

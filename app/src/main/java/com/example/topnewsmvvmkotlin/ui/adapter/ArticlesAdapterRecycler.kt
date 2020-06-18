@@ -16,41 +16,28 @@ class ArticlesAdapterRecyclerView(
     private val list: MutableList<Article>,
     private val listener: OnClickSelectedItem
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    //private var originalList = mutableListOf<Article>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_style,  parent, false)
+            .inflate(R.layout.recycler_style, parent, false)
         return ArticlesAdapterViewHolder(view)
     }
 
     fun addData(data: ModelResponse) {
         list.addAll(data.articles)
-        Log.i(TAG, "addData: ${list.size}" )
-        //originalList.addAll(list)
         notifyDataSetChanged()
     }
-
-    fun getList(): MutableList<Article> = list
-
-    //fun getOriginalList(): MutableList<Article> = originalList
 
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ArticlesAdapterViewHolder){
-            holder.bind(list[position])
-        }
-
+        if (holder is ArticlesAdapterViewHolder) holder.bind(list[position])
     }
 
-    interface OnClickSelectedItem {
-        fun onClick(query: String)
-    }
+    interface OnClickSelectedItem {fun onClick(query: String)}
 
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-
         var url: String = ""
 
         fun bind(article: Article) {
@@ -71,9 +58,6 @@ class ArticlesAdapterRecyclerView(
             }
             itemView.setOnClickListener(this)
         }
-
-        override fun onClick(p0: View?) {
-            listener.onClick(url)
-        }
+        override fun onClick(p0: View?) {listener.onClick(url)}
     }
 }

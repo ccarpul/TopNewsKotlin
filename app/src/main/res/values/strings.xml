@@ -2,7 +2,116 @@
     <string name="app_name">TopNewsMvvmKotlin</string>
     <string name="top_news">Top News</string>
     <string name="title_name">Top News</string>
-    <string name="todo">TODO</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="countries">
+        <item> \u0020 All Countries</item>
+        <item> \u0020 Argentina</item>
+        <item> \u0020 Brasil</item>
+        <item> \u0020 Canadá</item>
+        <item> \u0020 Germany</item>
+        <item> \u0020 France</item>
+        <item> \u0020 United Kingdom</item>
+        <item> \u0020 Italy</item>
+        <item> \u0020 México</item>
+        <item> \u0020 Portugal</item>
+        <item> \u0020 United States</item>
+        <item> \u0020 Venezuela</item>
+    </string-array>
+
+    <string-array name="countryValues">
+        <item>Country</item>
+        <item>ar</item>
+        <item>br</item>
+        <item>ca</item>
+        <item>de</item>
+        <item>fr</item>
+        <item>gb</item>
+        <item>it</item>
+        <item>mx</item>
+        <item>pt</item>
+        <item>us</item>
+        <item>ve</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item> \u0020 All Category</item>
+        <item> \u0020 Business</item>
+        <item> \u0020 Entertainment</item>
+        <item> \u0020 General</item>
+        <item> \u0020 Health</item>
+        <item> \u0020 Science</item>
+        <item> \u0020 Sports</item>
+        <item> \u0020 Technology</item>
+    </string-array>
+
+    <string-array name="categoryValues">
+        <item>All Category</item>
+        <item>Business</item>
+        <item>Entertainment</item>
+        <item>General</item>
+        <item>Health</item>
+        <item>Science</item>
+        <item>Sports</item>
+        <item>Technology</item>
+    </string-array>
+
+    <string-array name="sources">
+        <item> \u0020 All Sources</item>
+        <item> \u0020 ABC News</item>
+        <item> \u0020 BBC Sport</item>
+        <item> \u0020 BBC News</item>
+        <item> \u0020 Bloomberg</item>
+        <item> \u0020 CNN"</item>
+        <item> \u0020 CNN Spanish</item>
+        <item> \u0020 ESPN</item>
+        <item> \u0020 Fox News</item>
+        <item> \u0020 Fox Sports</item>
+        <item> \u0020 Globo</item>
+        <item> \u0020 Google News</item>
+    </string-array>
+    <string-array name="sourceValues">
+        <item>Sources</item>
+        <item>abc-news</item>
+        <item>bbc-sport</item>
+        <item>bbc-news</item>
+        <item>bloomberg</item>
+        <item>cnn</item>
+        <item>cnn-es</item>
+        <item>espn</item>
+        <item>fox-news</item>
+        <item>fox-sports</item>
+        <item>globo</item>
+        <item>google-news</item>
+    </string-array>
+    <string-array name="languages">
+        <item>\u0020 All Languages</item>
+        <item>\u0020 English</item>
+        <item>\u0020 Spanish</item>
+        <item>\u0020 France</item>
+        <item>\u0020 Italian</item>
+        <item>\u0020 Portugués</item>
+    </string-array>
+    <string-array name="languageValues">
+        <item>Languages</item>
+        <item>en</item>
+        <item>es</item>
+        <item>fr</item>
+        <item>it</item>
+        <item>pt</item>
+    </string-array>
+    <string-array name="sortBy">
+        <item>\u0020 Sort By</item>
+        <item>\u0020 Relevancy</item>
+        <item>\u0020 Popularity</item>
+        <item>\u0020 Published At</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="sortByValues">
+        <item>Sort By</item>
+        <item>relevancy</item>
+        <item>popularity</item>
+        <item>publishedAt</item>
+        <item></item>
+    </string-array>
 </resources>

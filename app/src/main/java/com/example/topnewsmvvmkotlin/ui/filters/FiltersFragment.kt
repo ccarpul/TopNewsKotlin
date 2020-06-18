@@ -3,38 +3,94 @@ package com.example.topnewsmvvmkotlin.ui.filters
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.AdapterView
+import android.widget.Spinner
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
 import com.example.topnewsmvvmkotlin.R
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.example.topnewsmvvmkotlin.ui.adapter.FilterAdapterSpinner
+import com.example.topnewsmvvmkotlin.util.imagesResources
+import com.example.topnewsmvvmkotlin.util.spinnerIdValues
+import kotlinx.android.synthetic.main.navigationdrawer_body.*
 
-class FiltersFragment : Fragment() {
+class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
+    private var valuesFilterSpinner = arrayOf<String>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate: ")
-
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        Log.i(TAG, "onCreateView: ")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_filters, container, false)
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i(TAG, "onViewCreated: ")
+
+        spinnerFilterSource.onItemSelectedListener = this
+        initSpinner()
+        getValuesSpinner(activity)
+        buttonSetupFilters.setOnClickListener(this)
     }
 
+    fun initSpinner() {
 
-} 
+        for ((idSpinnerLayout, arraySpinnerNames, arraySpinnerValues, pos) in spinnerIdValues) {
+
+            val listFilterSpinner: ArrayList<ModelSpinner> = arrayListOf()
+            val spinnerFilter: Spinner? = activity?.findViewById(idSpinnerLayout)
+            val itemsSpinnerName = resources.getStringArray(arraySpinnerNames)
+            for (item in itemsSpinnerName.indices) {
+                listFilterSpinner.add(
+                    ModelSpinner(
+                        itemsSpinnerName[item],
+                        imagesResources[pos][item]
+                    )
+                )
+            }
+            spinnerFilter?.adapter = FilterAdapterSpinner(context, listFilterSpinner)
+        }
+    }
+
+    fun getValuesSpinner(activity: FragmentActivity?): ArrayList<String> {
+
+        val allItemsFiltersSelected = arrayListOf<String>()
+
+        for ((spinnerId, spinnerName, spinnerValues) in spinnerIdValues) {
+
+            val currentSpinner = activity?.findViewById<Spinner>(spinnerId)
+            if (currentSpinner != null)
+                if (currentSpinner.selectedItemPosition > 0) {
+                    allItemsFiltersSelected
+                        .add(resources.getStringArray(spinnerValues)[currentSpinner.selectedItemPosition])
+                } else allItemsFiltersSelected.add("")
+        }
+        return allItemsFiltersSelected
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+        valuesFilterSpinner = getValuesSpinner(activity).toTypedArray()
+
+        if (valuesFilterSpinner[0] == "") {
+            spinnerFilterCountry.visibility = View.VISIBLE
+            spinnerFilterCategory.visibility = View.VISIBLE
+        } else {
+            spinnerFilterCountry.visibility = View.INVISIBLE
+            spinnerFilterCategory.visibility = View.INVISIBLE
+        }
+    }
+
+    override fun onClick(v: View?) {
+        valuesFilterSpinner = getValuesSpinner(activity).toTypedArray()
+        val passValuesFilter =
+            FiltersFragmentDirections.actionFiltersFragmentToHomeFragment(valuesFilterSpinner)
+        findNavController().navigate(passValuesFilter)
+    }
+}

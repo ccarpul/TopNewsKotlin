@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/textview_values_filters"
+    android:id="@+id/textviewValuesFilters"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:drawableStart="@drawable/ic_launcher_foreground"
@@ -14,4 +14,5 @@
     android:textStyle="bold"
     android:gravity="center_vertical"
     tools:text="item Spinner"
+    android:paddingStart="@dimen/width_image_spinner"
     />
