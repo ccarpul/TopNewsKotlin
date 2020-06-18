@@ -7,10 +7,14 @@ import com.example.topnewsmvvmkotlin.util.Constants
 class HomeRepository(private val newsApiClient: NewsApiClient) {
 
     //queryFilters [source, langunage, country, category]
-    suspend fun getArticles(page: Int, queryFilters: Array<String>): ModelResponse {
+    suspend fun getArticles(page: Int, queryFilters: List<String>): ModelResponse {
 
         return newsApiClient.getArticles(
-            page, Constants.PAGESIZE, Constants.KEYWORD_INIT, queryFilters[2],
-            queryFilters[3], queryFilters[0], queryFilters[1])
+            page, Constants.PAGESIZE,
+            Constants.KEYWORD_INIT,
+            queryFilters[0], //Country
+            queryFilters[1], //Category
+            queryFilters[2], //Source
+            queryFilters[3]) //Language
     }
 }

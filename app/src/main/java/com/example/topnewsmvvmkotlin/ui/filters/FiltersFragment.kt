@@ -10,7 +10,7 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.adapter.FilterAdapterSpinner
 import com.example.topnewsmvvmkotlin.util.imagesResources
@@ -18,11 +18,11 @@ import com.example.topnewsmvvmkotlin.util.spinnerIdValues
 import kotlinx.android.synthetic.main.navigationdrawer_body.*
 
 class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
-    private var valuesFilterSpinner = arrayOf<String>()
+
+    private var valuesFilterSpinner = arrayListOf<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_filters, container, false)
     }
 
@@ -44,10 +44,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
             val itemsSpinnerName = resources.getStringArray(arraySpinnerNames)
             for (item in itemsSpinnerName.indices) {
                 listFilterSpinner.add(
-                    ModelSpinner(
-                        itemsSpinnerName[item],
-                        imagesResources[pos][item]
-                    )
+                    ModelSpinner(itemsSpinnerName[item], imagesResources[pos][item])
                 )
             }
             spinnerFilter?.adapter = FilterAdapterSpinner(context, listFilterSpinner)
@@ -76,9 +73,9 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-        valuesFilterSpinner = getValuesSpinner(activity).toTypedArray()
+        valuesFilterSpinner = getValuesSpinner(activity)
 
-        if (valuesFilterSpinner[0] == "") {
+        if (valuesFilterSpinner[3] == "") {
             spinnerFilterCountry.visibility = View.VISIBLE
             spinnerFilterCategory.visibility = View.VISIBLE
         } else {
@@ -87,10 +84,12 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         }
     }
 
-    override fun onClick(v: View?) {
-        valuesFilterSpinner = getValuesSpinner(activity).toTypedArray()
-        val passValuesFilter =
-            FiltersFragmentDirections.actionFiltersFragmentToHomeFragment(valuesFilterSpinner)
-        findNavController().navigate(passValuesFilter)
+    override fun onClick(v: View) {
+        var valuesFilterSpinnerToHomeFragment = ""
+        for( valueFilter in getValuesSpinner(activity))  { valuesFilterSpinnerToHomeFragment += "$valueFilter,"}
+        val passValuesFilters
+                = FiltersFragmentDirections.actionFiltersFragmentToHomeFragment()
+                .setDefaulValuesFilter(valuesFilterSpinnerToHomeFragment)
+        Navigation.findNavController(v).navigate(passValuesFilters)
     }
 }

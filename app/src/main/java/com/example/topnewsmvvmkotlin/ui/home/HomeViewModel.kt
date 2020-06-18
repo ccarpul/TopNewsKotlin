@@ -2,9 +2,11 @@ package com.example.topnewsmvvmkotlin.ui.home
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.util.Constants
 import kotlinx.coroutines.*
@@ -15,7 +17,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     private var job: Job = Job()
     var page = 1
-    var queryFilters = arrayOf<String>()
+    var queryFilters = listOf<String>()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job //Sobreesribiendo la variable coroutineContext para usar la
@@ -27,13 +29,14 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     val getDataArticles: LiveData<ModelResponse>
         get() {
-             if (uiDataArticles.value == null) getDataArticles(page)
+            if (uiDataArticles.value == null) getDataArticles(page)
             else getDataArticles(page)
             page++
             return uiDataArticles
         }
 
     fun getDataArticles(page: Int) {
+
         launch {
             uiDataArticles.value = homeRepository.getArticles(page, queryFilters)
         }

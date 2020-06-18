@@ -114,4 +114,11 @@
         <item>publishedAt</item>
         <item></item>
     </string-array>
+
+    <string-array name="defaultValuesQuery">
+        <item>ve</item> <!-- Country  -->
+        <item></item>   <!-- Category -->
+        <item></item>   <!-- Source   -->
+        <item>en</item> <!-- Language -->
+    </string-array>
 </resources>

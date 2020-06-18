@@ -3,10 +3,11 @@ package com.example.topnewsmvvmkotlin.util
 import com.example.topnewsmvvmkotlin.R
 
 val spinnerIdValues = arrayOf(
-    intArrayOf(R.id.spinnerFilterSource, R.array.sources, R.array.sourceValues, 0),
-    intArrayOf(R.id.spinnerFilterLanguage, R.array.languages, R.array.languageValues,1),
-    intArrayOf(R.id.spinnerFilterCountry, R.array.countries, R.array.countryValues,2),
-    intArrayOf(R.id.spinnerFilterCategory, R.array.categories, R.array.categoryValues, 3)
+
+    intArrayOf(R.id.spinnerFilterCountry, R.array.countries, R.array.countryValues, 0),             //Country
+    intArrayOf(R.id.spinnerFilterCategory, R.array.categories, R.array.categoryValues,1),           //Category
+    intArrayOf(R.id.spinnerFilterSource, R.array.sources, R.array.sourceValues, 2),                 //Source
+    intArrayOf(R.id.spinnerFilterLanguage, R.array.languages, R.array.languageValues, 3)            //Languages
     //intArrayOf(R.id.spinnerFilterSortby, R.array.sortBy, R.array.sortByValues, 4) /inability
 )
 
@@ -49,6 +50,10 @@ val flagCountries = intArrayOf(
 val category = flagCountries //Todo
 val sortBy = flagCountries  //Todo
 
-val imagesResources = arrayListOf(imageSources, flagLanguages, flagCountries,
-    category, sortBy)
+val imagesResources = arrayListOf(
+     flagCountries, category, imageSources, flagLanguages,
+     sortBy
+)
+
+
 

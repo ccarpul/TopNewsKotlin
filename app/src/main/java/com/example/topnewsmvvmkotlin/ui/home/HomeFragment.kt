@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.ui.browser.DeepLinkFragmentArgs
+import com.example.topnewsmvvmkotlin.ui.filters.FiltersFragmentDirections
 import com.example.topnewsmvvmkotlin.util.Constants
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,26 +26,31 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
     private val homeViewModel: HomeViewModel by viewModel()  //inyecciòn de dependencia
+
     private lateinit var AdapterRecycler: ArticlesAdapterRecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private  var totalResults: Int = 0
+    private var totalResults: Int = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val args = arguments?.let {HomeFragmentArgs.fromBundle((it)) }
-        setQuery(args!!.valuesFilter)
-        homeViewModel.page = 1
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         setupRecyclerView()
         onScrollTopNews()
-        homeViewModel.getDataArticles.observe(viewLifecycleOwner, Observer(::upDateUi)) //.Observer {upDate(it}
+        setQuery(arguments)
+        homeViewModel.getDataArticles.observe(
+            viewLifecycleOwner,
+            Observer(::upDateUi)
+        ) //.Observer {upDate(it}
     }
 
     private fun upDateUi(data: ModelResponse) {
@@ -61,7 +68,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
-
         val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)
     }
@@ -77,7 +83,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         })
     }
 
-
     private fun isLastArticleDisplayed(recyclerView: RecyclerView): Boolean {
 
         var totalItems: Int? = recyclerView.adapter?.itemCount
@@ -90,9 +95,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         return false
     }
 
-    private fun setQuery(args: Array<String>){
-        homeViewModel.apply { page = 1
-            queryFilters = args
-        }
+    private fun setQuery(args: Bundle?) {
+        if (args != null)
+            homeViewModel.queryFilters = HomeFragmentArgs.fromBundle(args)
+                                        .defaulValuesFilter.split(",")
     }
 }
