@@ -1,8 +1,6 @@
 package com.example.topnewsmvvmkotlin.ui.filters
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,18 +27,18 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        spinnerFilterSource.onItemSelectedListener = this
         initSpinner()
-        getValuesSpinner(activity)
+        spinnerFilterSource.onItemSelectedListener = this
         buttonSetupFilters.setOnClickListener(this)
+        getValuesSpinner(activity)
     }
 
-    fun initSpinner() {
+    private fun initSpinner() {
 
         for ((idSpinnerLayout, arraySpinnerNames, arraySpinnerValues, pos) in spinnerIdValues) {
 
             val listFilterSpinner: ArrayList<ModelSpinner> = arrayListOf()
-            val spinnerFilter: Spinner? = activity?.findViewById(idSpinnerLayout)
+            val spinnerFilter: Spinner? = view?.findViewById(idSpinnerLayout)
             val itemsSpinnerName = resources.getStringArray(arraySpinnerNames)
             for (item in itemsSpinnerName.indices) {
                 listFilterSpinner.add(
@@ -51,12 +49,11 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         }
     }
 
-    fun getValuesSpinner(activity: FragmentActivity?): ArrayList<String> {
+    private fun getValuesSpinner(activity: FragmentActivity?): ArrayList<String> {
 
         val allItemsFiltersSelected = arrayListOf<String>()
 
         for ((spinnerId, spinnerName, spinnerValues) in spinnerIdValues) {
-
             val currentSpinner = activity?.findViewById<Spinner>(spinnerId)
             if (currentSpinner != null)
                 if (currentSpinner.selectedItemPosition > 0) {
@@ -75,7 +72,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
         valuesFilterSpinner = getValuesSpinner(activity)
 
-        if (valuesFilterSpinner[3] == "") {
+        if (valuesFilterSpinner[2] == "") {
             spinnerFilterCountry.visibility = View.VISIBLE
             spinnerFilterCategory.visibility = View.VISIBLE
         } else {
@@ -86,7 +83,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
     override fun onClick(v: View) {
         var valuesFilterSpinnerToHomeFragment = ""
-        for( valueFilter in getValuesSpinner(activity))  { valuesFilterSpinnerToHomeFragment += "$valueFilter,"}
+        for( valueFilter in getValuesSpinner(activity))  { valuesFilterSpinnerToHomeFragment += "$valueFilter," }
         val passValuesFilters
                 = FiltersFragmentDirections.actionFiltersFragmentToHomeFragment()
                 .setDefaulValuesFilter(valuesFilterSpinnerToHomeFragment)

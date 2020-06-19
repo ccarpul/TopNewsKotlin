@@ -121,4 +121,9 @@
         <item></item>   <!-- Source   -->
         <item>en</item> <!-- Language -->
     </string-array>
+
+    <string name="aboutMessage">This is an aplication that Shows news using Rest Api with
+                        Retrofit library from Newsapi.org \n\n\n And It was made on MVVM
+                        arquitecture \n\n\nVersion 1.2 \n\n\n
+                        CarPuL Company ©"</string>
 </resources>

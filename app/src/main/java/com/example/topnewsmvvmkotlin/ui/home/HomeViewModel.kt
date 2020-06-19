@@ -29,7 +29,8 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     val getDataArticles: LiveData<ModelResponse>
         get() {
-            if (uiDataArticles.value == null) getDataArticles(page)
+            if (uiDataArticles.value == null){ page = 1
+                 getDataArticles(page)}
             else getDataArticles(page)
             page++
             return uiDataArticles

@@ -22,6 +22,7 @@ import com.example.topnewsmvvmkotlin.ui.filters.FiltersFragmentDirections
 import com.example.topnewsmvvmkotlin.util.Constants
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
@@ -31,31 +32,26 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var totalResults: Int = 0
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        homeViewModel.page = 1
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        homeViewModel.getDataArticles.observe(viewLifecycleOwner, Observer(::upDateUi))
         setupRecyclerView()
         onScrollTopNews()
-        setQuery(arguments)
-        homeViewModel.getDataArticles.observe(
-            viewLifecycleOwner,
-            Observer(::upDateUi)
-        ) //.Observer {upDate(it}
+        setQuery(arguments)  //Arguments from SafeArgs
     }
 
     private fun upDateUi(data: ModelResponse) {
         AdapterRecycler.addData(data)
         totalResults = data.totalResults
+
     }
 
     private fun setupRecyclerView() {
@@ -98,6 +94,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private fun setQuery(args: Bundle?) {
         if (args != null)
             homeViewModel.queryFilters = HomeFragmentArgs.fromBundle(args)
-                                        .defaulValuesFilter.split(",")
+                .defaulValuesFilter.split(",")
     }
 }

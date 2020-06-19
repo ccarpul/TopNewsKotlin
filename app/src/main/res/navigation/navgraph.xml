@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigationView"
-    app:startDestination="@id/homeFragment">
-    <fragment
-        android:id="@+id/homeFragment"
+    app:startDestination="@id/filtersFragment">
+    <fragment android:id="@+id/homeFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.home.HomeFragment"
         android:label="FragmentHome"
         tools:layout="@layout/fragment_home">
@@ -14,15 +13,15 @@
             app:destination="@id/deepLinkFragment" />
         <action
             android:id="@+id/action_homeFragment_to_filtersFragment"
-            app:popUpTo="@id/filtersFragment">
+            app:popUpTo="@id/filtersFragment"
+            app:popUpToInclusive="true">
         </action>
         <argument
             android:name="defaulValuesFilter"
             app:argType="string"
             android:defaultValue=" , , ,en"/>
     </fragment>
-    <fragment
-        android:id="@+id/filtersFragment"
+    <fragment android:id="@+id/filtersFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.filters.FiltersFragment"
         android:label="FragmentFilter"
         tools:layout="@layout/fragment_filters">
@@ -30,8 +29,7 @@
             android:id="@+id/action_filtersFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/deepLinkFragment"
+    <fragment android:id="@+id/deepLinkFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.browser.DeepLinkFragment"
         android:label="fragment_deeplink"
         tools:layout="@layout/fragment_deeplink">
@@ -42,4 +40,8 @@
             android:id="@+id/action_deepLinkFragment_to_homeFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
+    <fragment android:id="@+id/aboutFragment"
+        android:name="com.example.topnewsmvvmkotlin.ui.about.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>
