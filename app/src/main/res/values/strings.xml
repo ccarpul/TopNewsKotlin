@@ -126,4 +126,6 @@
                         Retrofit library from Newsapi.org \n\n\n And It was made on MVVM
                         arquitecture \n\n\nVersion 1.2 \n\n\n
                         CarPuL Company ©"</string>
+    <string name="wrongChoice">Please Choice Another Option</string>
+
 </resources>

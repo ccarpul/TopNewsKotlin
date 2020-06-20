@@ -32,9 +32,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var totalResults: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?
+                              , savedInstanceState: Bundle?): View? {
         homeViewModel.page = 1
         return inflater.inflate(R.layout.fragment_home, container, false)
     }

@@ -1,17 +1,21 @@
 package com.example.topnewsmvvmkotlin.ui.filters
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.adapter.FilterAdapterSpinner
 import com.example.topnewsmvvmkotlin.util.imagesResources
+import com.example.topnewsmvvmkotlin.util.settingSpinner
 import com.example.topnewsmvvmkotlin.util.spinnerIdValues
 import kotlinx.android.synthetic.main.navigationdrawer_body.*
 
@@ -30,7 +34,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         initSpinner()
         spinnerFilterSource.onItemSelectedListener = this
         buttonSetupFilters.setOnClickListener(this)
-        getValuesSpinner(activity)
+        //getValuesSpinner(activity)
     }
 
     private fun initSpinner() {
@@ -51,8 +55,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
     private fun getValuesSpinner(activity: FragmentActivity?): ArrayList<String> {
 
-        val allItemsFiltersSelected = arrayListOf<String>()
-
+        var allItemsFiltersSelected = arrayListOf<String>()
         for ((spinnerId, spinnerName, spinnerValues) in spinnerIdValues) {
             val currentSpinner = activity?.findViewById<Spinner>(spinnerId)
             if (currentSpinner != null)
@@ -72,14 +75,14 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
         valuesFilterSpinner = getValuesSpinner(activity)
 
-        if (valuesFilterSpinner[2] == "") {
-            spinnerFilterCountry.visibility = View.VISIBLE
-            spinnerFilterCategory.visibility = View.VISIBLE
-        } else {
-            spinnerFilterCountry.visibility = View.INVISIBLE
-            spinnerFilterCategory.visibility = View.INVISIBLE
+        spinnerFilterCountry.apply {
+            settingSpinner(spinnerFilterCountry, spinnerFilterCountry, valuesFilterSpinner)
+        }
+        spinnerFilterCategory.apply {
+            settingSpinner(spinnerFilterCategory, spinnerFilterCategory, valuesFilterSpinner)
         }
     }
+
 
     override fun onClick(v: View) {
         var valuesFilterSpinnerToHomeFragment = ""
@@ -87,6 +90,8 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         val passValuesFilters
                 = FiltersFragmentDirections.actionFiltersFragmentToHomeFragment()
                 .setDefaulValuesFilter(valuesFilterSpinnerToHomeFragment)
-        Navigation.findNavController(v).navigate(passValuesFilters)
+        if(valuesFilterSpinnerToHomeFragment != ",,,,")
+            Navigation.findNavController(v).navigate(passValuesFilters)
+        else Toast.makeText(context, "${resources.getString(R.string.wrongChoice)}", Toast.LENGTH_SHORT).show()
     }
 }

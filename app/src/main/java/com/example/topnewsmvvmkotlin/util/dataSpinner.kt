@@ -1,5 +1,7 @@
 package com.example.topnewsmvvmkotlin.util
 
+import android.view.View
+import android.widget.Spinner
 import com.example.topnewsmvvmkotlin.R
 
 val spinnerIdValues = arrayOf(
@@ -54,6 +56,14 @@ val imagesResources = arrayListOf(
      flagCountries, category, imageSources, flagLanguages,
      sortBy
 )
+
+fun settingSpinner(v: View, spinner: Spinner, valuesFilterSpinner: ArrayList<String>){
+    if(valuesFilterSpinner[2] == "")  v.visibility = View.VISIBLE
+    else{
+        v. visibility = View.INVISIBLE
+        spinner.setSelection(0)
+    }
+}
 
 
 
