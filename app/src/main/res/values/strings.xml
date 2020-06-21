@@ -127,5 +127,6 @@
                         arquitecture \n\n\nVersion 1.2 \n\n\n
                         CarPuL Company ©"</string>
     <string name="wrongChoice">Please Choice Another Option</string>
+    <string name="allArticlesdisplayed">Es Todo!</string>
 
 </resources>

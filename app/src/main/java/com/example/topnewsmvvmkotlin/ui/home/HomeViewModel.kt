@@ -29,18 +29,16 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     val getDataArticles: LiveData<ModelResponse>
         get() {
-            if (uiDataArticles.value == null){ page = 1
-                 getDataArticles(page)}
-            else getDataArticles(page)
-            page++
+            if (uiDataArticles.value == null){
+                 getDataArticles(page)
+            }else getDataArticles(page)
             return uiDataArticles
         }
 
     fun getDataArticles(page: Int) {
 
         launch {
-            uiDataArticles.value = homeRepository.getArticles(page, queryFilters)
-        }
+            uiDataArticles.value = homeRepository.getArticles(page, queryFilters) }
     }
 
     init {
