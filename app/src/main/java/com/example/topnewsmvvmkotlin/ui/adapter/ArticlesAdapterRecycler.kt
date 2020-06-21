@@ -23,8 +23,7 @@ class ArticlesAdapterRecyclerView(
         return ArticlesAdapterViewHolder(view)
     }
 
-    fun addData(data: ModelResponse) {
-        list.addAll(data.articles)
+    fun addData(data: ModelResponse) { list.addAll(data.articles)
         notifyDataSetChanged()
     }
 
@@ -34,9 +33,7 @@ class ArticlesAdapterRecyclerView(
         if (holder is ArticlesAdapterViewHolder) holder.bind(list[position])
     }
 
-    interface OnClickSelectedItem {
-        fun onClick(query: String)
-    }
+    interface OnClickSelectedItem { fun onClick(query: String) }
 
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -51,6 +48,7 @@ class ArticlesAdapterRecyclerView(
                 content.text = article.content
                 author.text = article.author
                 publishedAt.text = article.publishedAt
+                url = article.url;
                 Picasso.with(itemView.context).load(article.urlToImage)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .resize(360, 280)
@@ -59,9 +57,6 @@ class ArticlesAdapterRecyclerView(
             }
             itemView.setOnClickListener(this)
         }
-
-        override fun onClick(p0: View?) {
-            listener.onClick(url)
-        }
+        override fun onClick(p0: View?) {listener.onClick(url)}
     }
 }

@@ -73,6 +73,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private fun setQuery(args: Bundle?) {
         if (args != null) homeViewModel.queryFilters = HomeFragmentArgs.fromBundle(args)
                 .defaulValuesFilter.split(",") }
+
     override fun onClick(query: String) {
         val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)

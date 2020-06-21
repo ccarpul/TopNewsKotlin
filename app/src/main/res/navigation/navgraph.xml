@@ -27,7 +27,8 @@
         tools:layout="@layout/fragment_filters">
         <action
             android:id="@+id/action_filtersFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment android:id="@+id/deepLinkFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.browser.DeepLinkFragment"
@@ -43,5 +44,6 @@
     <fragment android:id="@+id/aboutFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.about.AboutFragment"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about"
+        app:popUpTo="@id/homeFragment" />
 </navigation>
