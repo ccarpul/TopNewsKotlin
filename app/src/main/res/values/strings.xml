@@ -128,5 +128,8 @@
                         CarPuL Company ©"</string>
     <string name="wrongChoice">Please Choice Another Option</string>
     <string name="allArticlesdisplayed">Es Todo!</string>
+    <string name="topNews">Top News</string>
+    <string name="filters">Filters</string>
+    <string name="aboutMenu">About</string>
 
 </resources>

@@ -27,14 +27,15 @@ import kotlin.math.log
 
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
-    private val homeViewModel: HomeViewModel by viewModel()  //inyecciòn de dependencia
+    private val homeViewModel: HomeViewModel by viewModel()               //inyección de dependencia
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val adapterRecycler: ArticlesAdapterRecyclerView = ArticlesAdapterRecyclerView(mutableListOf(), this)
+    private val adapterRecycler: ArticlesAdapterRecyclerView
+                                = ArticlesAdapterRecyclerView(mutableListOf(), this)
     private var totalResults: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setQuery(arguments)//Arguments from SafeArgs
+        setQuery(arguments)                                                //Arguments from SafeArgs
         homeViewModel.getDataArticles.observe(this, Observer(::upDateUi))
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?

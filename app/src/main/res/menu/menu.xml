@@ -5,16 +5,19 @@
     <item
         android:id="@+id/homeFragment"
         android:enabled="true"
-        android:title="Top News"
+        android:icon="@drawable/ic_home_24"
+        android:title="@string/topNews"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/filtersFragment"
         android:enabled="true"
-        android:title="Filters"
+        android:icon="@drawable/ic_search_24"
+        android:title="@string/filters"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/aboutFragment"
         android:enabled="true"
-        android:title="About"
+        android:icon="@drawable/ic_portrait_24"
+        android:title="@string/aboutMenu"
         app:showAsAction="ifRoom" />
 </menu>
