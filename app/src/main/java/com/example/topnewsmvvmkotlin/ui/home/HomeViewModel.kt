@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.util.Constants
+import com.example.topnewsmvvmkotlin.util.ResultWrapper
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.log
@@ -29,16 +30,29 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     val getDataArticles: LiveData<ModelResponse>
         get() {
-            if (uiDataArticles.value == null){
-                 getDataArticles(page)
-            }else getDataArticles(page)
+            if (uiDataArticles.value == null) {
+                getDataArticles(page)
+            } else getDataArticles(page)
             return uiDataArticles
         }
 
     fun getDataArticles(page: Int) {
 
         launch {
-            uiDataArticles.value = homeRepository.getArticles(page, queryFilters) }
+
+            when (val result = homeRepository.getArticles(page, queryFilters)) {
+                is ResultWrapper.Success -> {
+                    uiDataArticles.value = result.value
+                }
+                is ResultWrapper.NetworkError -> {
+                    Log.d("Test", result.throwable.message())
+                }
+                is ResultWrapper.GenericError -> {
+                    Log.d("Test", result.error)
+                }
+            }
+
+        }
     }
 
     init {
