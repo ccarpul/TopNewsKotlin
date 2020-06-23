@@ -38,7 +38,13 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     fun getDataArticles(page: Int) {
 
         launch {
-            uiDataArticles.value = homeRepository.getArticles(page, queryFilters) }
+            val result = runCatching { val response = homeRepository.getArticles(page, queryFilters)
+                uiDataArticles.value = response
+            }
+
+
+
+        }
     }
 
     init {

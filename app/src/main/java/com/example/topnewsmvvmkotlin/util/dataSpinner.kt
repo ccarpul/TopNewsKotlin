@@ -60,9 +60,9 @@ val imagesResources = arrayListOf(
 )
 
 fun settingSpinner(v: View, spinner: Spinner, valuesFilterSpinner: ArrayList<String>){
+
     if(valuesFilterSpinner[2] == "")  v.visibility = View.VISIBLE
-    else{
-        v. visibility = View.INVISIBLE
+    else{ v. visibility = View.INVISIBLE
         spinner.setSelection(0)
     }
 }

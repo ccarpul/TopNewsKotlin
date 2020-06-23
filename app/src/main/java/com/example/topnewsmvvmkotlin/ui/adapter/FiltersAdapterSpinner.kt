@@ -23,8 +23,7 @@ class FilterAdapterSpinner(context: Context?, private val listItemSpinner: Array
     }
 
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var mConvertView: View? = convertView
-            mConvertView = LayoutInflater.from(context)
+        var mConvertView: View? = LayoutInflater.from(context)
                 .inflate(R.layout.spinner_style, parent, false)
 
         val textViewSpinner: TextView? = mConvertView?.findViewById(R.id.textviewValuesFilters)
@@ -32,10 +31,8 @@ class FilterAdapterSpinner(context: Context?, private val listItemSpinner: Array
 
         textViewSpinner?.apply {
             text = modelSpinner?.textSpinner
-            setCompoundDrawablesWithIntrinsicBounds(
-                modelSpinner!!.imageSpinner,
-                0, 0, 0
-            )
+            setCompoundDrawablesWithIntrinsicBounds(modelSpinner!!.imageSpinner,
+                0, 0, 0)
         }
         return mConvertView!!
     }
