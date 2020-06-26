@@ -1,23 +1,20 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
-import android.content.ContentValues.TAG
+
 import android.util.Log
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.util.Constants
 import com.example.topnewsmvvmkotlin.util.ResultWrapper
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
-import kotlin.math.log
 
 class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), CoroutineScope {
 
     private var job: Job = Job()
-    var page = 1
+    var page = Constants.PAGE_INIT
     var queryFilters = listOf<String>()
 
     override val coroutineContext: CoroutineContext
@@ -26,7 +23,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     // Especifico el dispacher para que se ejecute en el hilo principal y
     //le paso la referencia job para controlar el estado de la corrutina
 
-    private val uiDataArticles = MutableLiveData<ModelResponse>()
+    val uiDataArticles = MutableLiveData<ModelResponse>()
 
     val getDataArticles: LiveData<ModelResponse>
         get() {
@@ -51,13 +48,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
                     Log.d("Test", result.error)
                 }
             }
-
         }
     }
 
-    init {
-        job = SupervisorJob()
-    }
+    init { job = SupervisorJob() }
 
     override fun onCleared() {  //Metodo de la clase View Model, al cerrarse el View Model
         // se cierran todas las corrutinas pertenecientes ael presente Scope

@@ -8,11 +8,12 @@ import retrofit2.http.Query
 interface NewsApiClient {
 
     @GET("${Constants.ENDPOINT}${Constants.APIKEY}")
-    suspend fun getArticles( @Query("page") page: Int,
+    suspend fun getArticles(
+        @Query("page")     page: Int,
         @Query("pagesize") page_size: Int,
-        @Query("q") key_word: String?,
-        @Query("country") country: String?,
+        @Query("country")  country: String?,
         @Query("category") category: String?,
-        @Query("sources") source: String?,
-        @Query("language") language: String?) : ModelResponse
+        @Query("sources")  source: String?,
+        @Query("language") language: String?,
+        @Query("q")        key_word: String?) : ModelResponse
 }

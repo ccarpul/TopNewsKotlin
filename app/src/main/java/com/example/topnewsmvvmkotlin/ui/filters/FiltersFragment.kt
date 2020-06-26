@@ -1,6 +1,8 @@
 package com.example.topnewsmvvmkotlin.ui.filters
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +29,9 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         spinnerFilterSource.onItemSelectedListener = this
         buttonSetupFilters.setOnClickListener(this)
     }
+
     override fun onNothingSelected(parent: AdapterView<*>?) {}
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         valuesFilterSpinner = getValuesSpinner(activity)
         spinnerFilterCountry.apply {
@@ -35,13 +39,18 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         spinnerFilterCategory.apply {
             settingSpinner(spinnerFilterCategory, spinnerFilterCategory, valuesFilterSpinner) }
     }
+
     override fun onClick(v: View) {
-        var valuesFilterSpinnerToHomeFragment = ""
-        for( valueFilter in getValuesSpinner(activity))  { valuesFilterSpinnerToHomeFragment += "$valueFilter," }
+        var valuesFiltersToHomeFragment = ""
+        val keyWord = editKeyWord.text.toString()
+
+        for( valueFilter in getValuesSpinner(activity))  { valuesFiltersToHomeFragment += "$valueFilter," }
+        valuesFiltersToHomeFragment += keyWord
         val passValuesFilters
                 = FiltersFragmentDirections.actionFiltersFragmentToHomeFragment()
-                .setDefaulValuesFilter(valuesFilterSpinnerToHomeFragment)
-        if(valuesFilterSpinnerToHomeFragment != ",,,,")
+                .setDefaulValuesFilter(valuesFiltersToHomeFragment)
+
+        if(valuesFiltersToHomeFragment != ",,,," || keyWord !="")
             Navigation.findNavController(v).navigate(passValuesFilters)
         else Toast.makeText(context, resources.getString(R.string.wrongChoice), Toast.LENGTH_SHORT).show()
     }

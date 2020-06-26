@@ -18,6 +18,6 @@ fun getApiService(): NewsApiClient {
 fun getOkHttpClient(): OkHttpClient {
 
     val logging = HttpLoggingInterceptor()
-    logging.level = HttpLoggingInterceptor.Level.HEADERS
+    logging.level = HttpLoggingInterceptor.Level.BASIC
     return OkHttpClient.Builder().addInterceptor(logging).build()
 }

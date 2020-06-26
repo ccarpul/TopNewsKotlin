@@ -1,11 +1,14 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,22 +23,20 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
-    private val homeViewModel: HomeViewModel by viewModel()               //inyección de dependencia
+    private val homeViewModel: HomeViewModel by viewModel() //inyección de dependencia
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val adapterRecycler: ArticlesAdapterRecyclerView =
-        ArticlesAdapterRecyclerView(mutableListOf(), this)
+    private var adapterRecycler: ArticlesAdapterRecyclerView  = ArticlesAdapterRecyclerView(
+        mutableListOf(), this)
     private var totalResults: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setQuery(arguments)                                                //Arguments from SafeArgs
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         homeViewModel.getDataArticles.observe(this, Observer(::upDateUi))
+        setQuery(arguments)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?
-        , savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -62,9 +63,11 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         topNews_recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (isLastArticleDisplayed(recyclerView, linearLayoutManager))
+                if (isLastArticleDisplayed(recyclerView, linearLayoutManager)) {
                     if (homeViewModel.page++ * Constants.PAGESIZE <= totalResults) homeViewModel.getDataArticles
-                    else Toast.makeText(context, resources.getString(R.string.allArticlesdisplayed), Toast.LENGTH_SHORT).show()
+                    else Toast.makeText(context, resources.getString(R.string.allArticlesdisplayed),
+                        Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
@@ -72,6 +75,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private fun setQuery(args: Bundle?) {
         if (args != null) homeViewModel.queryFilters = HomeFragmentArgs.fromBundle(args)
             .defaulValuesFilter.split(",")
+        Log.i(TAG, "setQuery: ${homeViewModel.queryFilters}")
     }
 
     override fun onClick(query: String) {

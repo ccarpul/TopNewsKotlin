@@ -19,7 +19,7 @@
         <argument
             android:name="defaulValuesFilter"
             app:argType="string"
-            android:defaultValue=" , , ,en"/>
+            android:defaultValue=" , , ,en,"/>
     </fragment>
     <fragment android:id="@+id/filtersFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.filters.FiltersFragment"

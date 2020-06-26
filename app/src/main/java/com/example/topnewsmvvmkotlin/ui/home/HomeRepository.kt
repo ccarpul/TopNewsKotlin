@@ -22,14 +22,12 @@ class HomeRepository(private val newsApiClient: NewsApiClient) {
             safeApiCall(dispatcher) {
                 newsApiClient.getArticles(
                     page, Constants.PAGESIZE,
-                    Constants.KEYWORD_INIT,
                     queryFilters[0], //Country
                     queryFilters[1], //Category
                     queryFilters[2], //Source
-                    queryFilters[3]
-                ) //Language }
+                    queryFilters[3], //Language
+                    queryFilters[4]  //KeyWord
+                )
             }
-
         }
-
 }
