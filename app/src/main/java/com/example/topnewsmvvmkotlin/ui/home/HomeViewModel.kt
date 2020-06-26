@@ -18,35 +18,28 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     var queryFilters = listOf<String>()
 
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job //Sobreesribiendo la variable coroutineContext para usar la
+        get() = Dispatchers.Main + job
+    /**Sobreesribiendo la variable coroutineContext para usar la
     // interfaz CourutinaScope como ambito de las coroutinas del ViewModel
     // Especifico el dispacher para que se ejecute en el hilo principal y
-    //le paso la referencia job para controlar el estado de la corrutina
+    //le paso la referencia job para controlar el estado de la corrutina*/
 
     val uiDataArticles = MutableLiveData<ModelResponse>()
 
     val getDataArticles: LiveData<ModelResponse>
         get() {
-            if (uiDataArticles.value == null) {
-                getDataArticles(page)
-            } else getDataArticles(page)
+            if (uiDataArticles.value == null)  getDataArticles(page)
+            else getDataArticles(page)
             return uiDataArticles
         }
 
     fun getDataArticles(page: Int) {
 
         launch {
-
             when (val result = homeRepository.getArticles(page, queryFilters)) {
-                is ResultWrapper.Success -> {
-                    uiDataArticles.value = result.value
-                }
-                is ResultWrapper.NetworkError -> {
-                    Log.d("Test", result.throwable.message())
-                }
-                is ResultWrapper.GenericError -> {
-                    Log.d("Test", result.error)
-                }
+                is ResultWrapper.Success      -> { uiDataArticles.value = result.value }
+                is ResultWrapper.NetworkError -> { Log.d("Test", result.throwable.message()) }
+                is ResultWrapper.GenericError -> { Log.d("Test", result.error) }
             }
         }
     }
