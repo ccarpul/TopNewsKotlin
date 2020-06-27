@@ -19,15 +19,13 @@ class HomeRepository(private val newsApiClient: NewsApiClient) {
     //queryFilters [source, langunage, country, category]
     suspend fun getArticles(page: Int, queryFilters: List<String>): ResultWrapper<ModelResponse> =
         withContext(Dispatchers.IO) {
-            safeApiCall(dispatcher) {
-                newsApiClient.getArticles(
+            safeApiCall(dispatcher) { newsApiClient.getArticles(
                     page, Constants.PAGESIZE,
                     queryFilters[0], //Country
                     queryFilters[1], //Category
                     queryFilters[2], //Source
                     queryFilters[3], //Language
-                    queryFilters[4]  //KeyWord
-                )
+                    queryFilters[4] ) //KeyWord
             }
         }
 }

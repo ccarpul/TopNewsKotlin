@@ -1,8 +1,6 @@
 package com.example.topnewsmvvmkotlin.ui.filters
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +14,6 @@ import kotlinx.android.synthetic.main.navigationdrawer_body.*
 
 class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private var valuesFilterSpinner = arrayListOf<String>()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_filters, container, false)
@@ -25,7 +21,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSpinners(view, context)
+        view.builtSpinners()
         spinnerFilterSource.onItemSelectedListener = this
         buttonSetupFilters.setOnClickListener(this)
     }
@@ -33,25 +29,34 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        valuesFilterSpinner = getValuesSpinner(activity)
-        spinnerFilterCountry.apply {
-            settingSpinner(spinnerFilterCountry, spinnerFilterCountry, valuesFilterSpinner) }
-        spinnerFilterCategory.apply {
-            settingSpinner(spinnerFilterCategory, spinnerFilterCategory, valuesFilterSpinner) }
+
+        if (position > 0) {
+            spinnerFilterCountry.hide()
+            spinnerFilterCategory.hide()
+        }else{
+            spinnerFilterCountry.show()
+            spinnerFilterCategory.show() }
     }
 
     override fun onClick(v: View) {
-        var valuesFiltersToHomeFragment = ""
-        val keyWord = editKeyWord.text.toString()
 
-        for( valueFilter in getValuesSpinner(activity))  { valuesFiltersToHomeFragment += "$valueFilter," }
-        valuesFiltersToHomeFragment += keyWord
-        val passValuesFilters
-                = FiltersFragmentDirections.actionFiltersFragmentToHomeFragment()
-                .setDefaulValuesFilter(valuesFiltersToHomeFragment)
+        val valuesFiltersToHomeFragment =
+                "${spinnerFilterCountry.getValue(R.array.countryValues)}," +
+                "${spinnerFilterCategory.getValue(R.array.categoryValues)}," +
+                "${spinnerFilterSource.getValue(R.array.sourceValues)}," +
+                "${spinnerFilterLanguage.getValue(R.array.languageValues)}," +
+                "${editKeyWord.text} "
 
-        if(valuesFiltersToHomeFragment != ",,,," || keyWord !="")
+        if(valuesFiltersToHomeFragment != Constants.NO_FILTERS_SELECTED) {
+
+            val passValuesFilters
+                    = FiltersFragmentDirections
+                     .actionFiltersFragmentToHomeFragment()
+                     .setDefaulValuesFilter(valuesFiltersToHomeFragment)
+
             Navigation.findNavController(v).navigate(passValuesFilters)
-        else Toast.makeText(context, resources.getString(R.string.wrongChoice), Toast.LENGTH_SHORT).show()
+        }
+        else Toast.makeText(context, resources.getString(R.string.wrongChoice), Toast.LENGTH_SHORT)
+            .show()
     }
 }
