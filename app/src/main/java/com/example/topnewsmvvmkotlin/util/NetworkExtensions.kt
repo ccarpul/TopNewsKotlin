@@ -1,7 +1,5 @@
 package com.example.topnewsmvvmkotlin.util
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.Response

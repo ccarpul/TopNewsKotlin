@@ -1,14 +1,12 @@
 package com.example.topnewsmvvmkotlin.ui.browser
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.util.mWebViewClient
+import com.example.topnewsmvvmkotlin.util.WebViewClient
 import kotlinx.android.synthetic.main.fragment_deeplink.*
 
 class DeepLinkFragment : Fragment() {
@@ -22,7 +20,7 @@ class DeepLinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args = arguments?.let { DeepLinkFragmentArgs.fromBundle(it) }
-        webView.webViewClient = mWebViewClient()
+        webView.webViewClient = WebViewClient()
         webView.loadUrl(args?.url)
     }
 }
