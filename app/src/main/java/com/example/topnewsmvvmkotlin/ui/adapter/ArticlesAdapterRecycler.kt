@@ -49,11 +49,13 @@ class ArticlesAdapterRecyclerView(
                 author.text = article.author
                 publishedAt.text = article.publishedAt
                 url = article.url;
-                Picasso.with(itemView.context).load(article.urlToImage)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .resize(360, 280)
-                    .centerCrop()
-                    .into(urlToImage)
+                if (!article.urlToImage.isNullOrBlank()) {
+                    Picasso.with(itemView.context).load(article.urlToImage)
+                        .placeholder(R.drawable.diarynews_image)
+                        .resize(360, 280)
+                        .centerCrop()
+                        .into(urlToImage)
+                }else urlToImage.setImageDrawable(resources.getDrawable(R.drawable.diarynews_image))
             }
             itemView.setOnClickListener(this)
         }
