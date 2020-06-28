@@ -25,7 +25,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var adapterRecycler: ArticlesAdapterRecyclerView  = ArticlesAdapterRecyclerView(
         mutableListOf(), this)
-    private var totalResults: Int = 0
+    private var totalResults: Int = Constants.TOTAL_RESULTS_INIT
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +65,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         topNews_recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (isLastArticleDisplayed(recyclerView, linearLayoutManager)) {
+
+                if (topNews_recyclerView.isLastArticleDisplayed(linearLayoutManager)) {
                     if (homeViewModel.page++ * Constants.PAGESIZE <= totalResults) homeViewModel.getDataArticles
                     else Toast.makeText(context, resources.getString(R.string.allArticlesdisplayed),
                         Toast.LENGTH_SHORT).show()
@@ -80,7 +81,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
-        val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
+        val passUrl
+                = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)
     }
 }
