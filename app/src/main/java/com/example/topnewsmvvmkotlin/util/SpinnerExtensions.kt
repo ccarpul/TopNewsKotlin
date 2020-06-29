@@ -36,7 +36,7 @@ fun View.builtSpinners(){
         spinnerFilterLanguage.built(R.array.languages , flagLanguages)
 }
 
-fun Spinner.getValue(spinnerValues: Int): String{
+fun Spinner.getValue(spinnerValues: Int):String{
 
     if(this.selectedItemPosition > 0)
         return context.resources.getStringArray(spinnerValues)[this.selectedItemPosition]
