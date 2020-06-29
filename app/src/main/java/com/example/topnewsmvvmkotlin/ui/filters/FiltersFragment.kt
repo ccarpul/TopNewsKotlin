@@ -56,7 +56,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
 
             Navigation.findNavController(v).navigate(passValuesFilters)
         }
-        else Toast.makeText(context, resources.getString(R.string.wrongChoice), Toast.LENGTH_SHORT)
-            .show()
+        else makeToast(context, resources.getString(R.string.wrongChoice))
+
     }
 }

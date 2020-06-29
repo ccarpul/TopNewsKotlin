@@ -131,5 +131,6 @@
     <string name="topNews">Top News</string>
     <string name="filters">Filters</string>
     <string name="aboutMenu">About</string>
+    <string name="noResults">No Results</string>
 
 </resources>

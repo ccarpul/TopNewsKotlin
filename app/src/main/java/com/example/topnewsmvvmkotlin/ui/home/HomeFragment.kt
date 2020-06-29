@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,15 +15,18 @@ import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.Constants
 import com.example.topnewsmvvmkotlin.util.isLastArticleDisplayed
+import com.example.topnewsmvvmkotlin.util.makeToast
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
     private val homeViewModel: HomeViewModel by viewModel() //inyección de dependencia
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var adapterRecycler: ArticlesAdapterRecyclerView  = ArticlesAdapterRecyclerView(
-        mutableListOf(), this)
+    private var adapterRecycler: ArticlesAdapterRecyclerView = ArticlesAdapterRecyclerView(
+        mutableListOf(), this
+    )
     private var totalResults: Int = Constants.TOTAL_RESULTS_INIT
 
     override fun onAttach(context: Context) {
@@ -33,8 +35,10 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         setQuery(arguments)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -47,9 +51,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private fun upDateUi(data: ModelResponse) {
         adapterRecycler.addData(data)
         totalResults = data.totalResults
-        if (totalResults == 0){
+        if (totalResults == 0) {
             findNavController().navigate(R.id.filtersFragment)
-            Toast.makeText(context, "No Results", Toast.LENGTH_SHORT).show()
+            makeToast(context, getString(R.string.noResults))
         }
     }
 
@@ -68,8 +72,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
                 if (topNews_recyclerView.isLastArticleDisplayed(linearLayoutManager)) {
                     if (homeViewModel.page++ * Constants.PAGESIZE <= totalResults) homeViewModel.getDataArticles
-                    else Toast.makeText(context, resources.getString(R.string.allArticlesdisplayed),
-                        Toast.LENGTH_SHORT).show()
+                    else  makeToast(context, getString(R.string.allArticlesdisplayed))
+
                 }
             }
         })
@@ -81,8 +85,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
-        val passUrl
-                = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
+        val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)
     }
 }
