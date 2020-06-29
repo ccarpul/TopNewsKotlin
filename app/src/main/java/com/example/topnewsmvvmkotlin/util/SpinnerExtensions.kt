@@ -44,7 +44,7 @@ fun Spinner.getValue(spinnerValues: Int):String{
 }
 
 fun Spinner.hide(){
-    this.apply{ visibility = View.GONE
+    this.apply{ visibility = View.INVISIBLE
                 setSelection(0)
     }
 }

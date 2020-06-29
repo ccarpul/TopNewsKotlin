@@ -71,9 +71,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
                 super.onScrolled(recyclerView, dx, dy)
 
                 if (topNews_recyclerView.isLastArticleDisplayed(linearLayoutManager)) {
-                    if (homeViewModel.page++ * Constants.PAGESIZE < totalResults) homeViewModel.getDataArticles
+                    if (homeViewModel.page++ * Constants.PAGESIZE < totalResults)
+                        homeViewModel.getDataArticles
                     else  makeToast(context, getString(R.string.allArticlesdisplayed))
-
                 }
             }
         })
