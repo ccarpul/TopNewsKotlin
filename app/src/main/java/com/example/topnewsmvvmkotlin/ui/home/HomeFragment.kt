@@ -48,8 +48,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         super.onViewCreated(view, savedInstanceState)
         onScrollTopNews()
     }
-
-    var i =1
+    
     private fun upDateUi(state: HomeViewModel.StateLiveData) {
 
         when(state){
