@@ -15,30 +15,41 @@ import kotlinx.android.synthetic.main.recycler_style.view.*
 class ArticlesAdapterRecyclerView(
     private val list: MutableList<Article>,
     private val listener: OnClickSelectedItem
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
+    var pos =0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_style, parent, false)
         return ArticlesAdapterViewHolder(view)
     }
 
-    fun addData(data: ModelResponse) { list.addAll(data.articles)
+    fun addData(data: ModelResponse) {
+        list.addAll(data.articles)
         notifyDataSetChanged()
+
     }
 
     override fun getItemCount(): Int = list.size
 
+
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ArticlesAdapterViewHolder) holder.bind(list[position])
+        if (holder is ArticlesAdapterViewHolder) {
+            Log.i(TAG, "onBindViewHolder: $position")
+            pos = position
+            holder.bind(list[position])
+        }
     }
 
     interface OnClickSelectedItem { fun onClick(query: String) }
 
+
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var url: String = ""
-
         fun bind(article: Article) {
             itemView.apply {
                 article_id.text = article.source.id
@@ -58,6 +69,7 @@ class ArticlesAdapterRecyclerView(
                 }else urlToImage.setImageDrawable(resources.getDrawable(R.drawable.diarynews_image))
             }
             itemView.setOnClickListener(this)
+
         }
         override fun onClick(p0: View?) {listener.onClick(url)}
     }
