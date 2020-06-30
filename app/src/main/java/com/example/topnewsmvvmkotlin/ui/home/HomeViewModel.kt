@@ -1,6 +1,7 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,24 +25,35 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     // Especifico el dispacher para que se ejecute en el hilo principal y
     //le paso la referencia job para controlar el estado de la corrutina*/
 
-    val uiDataArticles = MutableLiveData<ModelResponse>()
+    private val uiModelArticles = MutableLiveData<StateLiveData>()
 
-    val getDataArticles: LiveData<ModelResponse>
+    sealed class StateLiveData{
+        object InitialStateUi: StateLiveData()
+        object PreCall:        StateLiveData()
+        class  RefreshStateUi(val response: ModelResponse) : StateLiveData()
+        object PostCall:       StateLiveData()
+    }
+
+    val modelArticles: LiveData<StateLiveData>
         get() {
-            if (uiDataArticles.value == null)  getDataArticles(page)
-            else getDataArticles(page)
-            return uiDataArticles
+            if (uiModelArticles.value == null) setUi()
+            return uiModelArticles
         }
 
-    fun getDataArticles(page: Int) {
+    fun getDataArticles() {
+
+        uiModelArticles.value = StateLiveData.PreCall
 
         launch {
             when (val result = homeRepository.getArticles(page, queryFilters)) {
-                is ResultWrapper.Success      -> { uiDataArticles.value = result.value }
+                is ResultWrapper.Success      -> {
+                    uiModelArticles.value = StateLiveData.RefreshStateUi(result.value)
+                }
                 is ResultWrapper.NetworkError -> { Log.d("Test", result.throwable.message()) }
                 is ResultWrapper.GenericError -> { Log.d("Test", result.error) }
             }
         }
+        uiModelArticles.value = StateLiveData.PostCall
     }
 
     init { job = SupervisorJob() }
@@ -51,4 +63,6 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
         job.cancel()
         super.onCleared()
     }
+
+    fun setUi(){ uiModelArticles.value = StateLiveData.InitialStateUi }
 }

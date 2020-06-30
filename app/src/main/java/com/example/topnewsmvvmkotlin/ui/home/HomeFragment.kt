@@ -1,7 +1,9 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,14 +26,13 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
     private val homeViewModel: HomeViewModel by viewModel() //inyección de dependencia
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var adapterRecycler: ArticlesAdapterRecyclerView = ArticlesAdapterRecyclerView(
-        mutableListOf(), this
-    )
+    private var adapterRecycler: ArticlesAdapterRecyclerView
+           = ArticlesAdapterRecyclerView(mutableListOf(), this)
     private var totalResults: Int = Constants.TOTAL_RESULTS_INIT
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        homeViewModel.getDataArticles.observe(this, Observer(::upDateUi))
+        homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
         setQuery(arguments)
     }
 
@@ -39,26 +40,38 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
         onScrollTopNews()
     }
 
-    private fun upDateUi(data: ModelResponse) {
-        adapterRecycler.addData(data)
-        totalResults = data.totalResults
-        if (totalResults == 0) {
-            findNavController().navigate(R.id.filtersFragment)
-            makeToast(context, getString(R.string.noResults))
+    var i =1
+    private fun upDateUi(state: HomeViewModel.StateLiveData) {
+
+        when(state){
+            is HomeViewModel.StateLiveData.InitialStateUi -> {
+                setupRecyclerView()
+                homeViewModel.getDataArticles()
+            }
+            is HomeViewModel.StateLiveData.PreCall -> {/*TODO progressBar.Show()*/}
+            is HomeViewModel.StateLiveData.RefreshStateUi -> {
+                totalResults = state.response.totalResults
+                if (totalResults == 0) {
+                    findNavController().navigate(R.id.filtersFragment)
+                    makeToast(context, getString(R.string.noResults))
+                }
+                adapterRecycler.addData(state.response)
+            }
+            is HomeViewModel.StateLiveData.PostCall -> { /*TODO progressBar.Hide()*/}
         }
     }
 
     private fun setupRecyclerView() {
-        linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager = LinearLayoutManager(requireContext())
         topNews_recyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = adapterRecycler
@@ -72,7 +85,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
                 if (topNews_recyclerView.isLastArticleDisplayed(linearLayoutManager)) {
                     if (homeViewModel.page++ * Constants.PAGESIZE < totalResults)
-                        homeViewModel.getDataArticles
+                        homeViewModel.getDataArticles()
                     else  makeToast(context, getString(R.string.allArticlesdisplayed))
                 }
             }
@@ -85,7 +98,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
-        val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
+        val passUrl
+                = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)
     }
 }
