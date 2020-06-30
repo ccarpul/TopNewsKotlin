@@ -20,10 +20,9 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     private var job: Job = Job()
     var page = Constants.PAGE_INIT
     var queryFilters = listOf<String>()
-    lateinit var adapterRecycler: ArticlesAdapterRecyclerView
     private val prueba = arrayListOf<ModelResponse>()
     var pos = 0
-    var totalResult = Constants.TOTAL_RESULTS_INIT
+    private var totalResult = Constants.TOTAL_RESULTS_INIT
 
 
 
@@ -75,5 +74,9 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
         // se cierran todas las corrutinas pertenecientes ael presente Scope
         job.cancel()
         super.onCleared()
+    }
+
+    fun getTotalResults(): Int{
+        return totalResult
     }
 }

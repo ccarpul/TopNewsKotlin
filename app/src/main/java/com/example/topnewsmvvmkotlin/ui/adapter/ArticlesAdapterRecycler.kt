@@ -11,15 +11,16 @@ import com.example.topnewsmvvmkotlin.data.model.Article
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycler_style.view.*
+import javax.security.auth.login.LoginException
 
 class ArticlesAdapterRecyclerView(
-    private val list: MutableList<Article>,
+    private var list: MutableList<Article>,
     private val listener: OnClickSelectedItem
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val originalList: MutableList<Article> = arrayListOf()
 
-
-    var pos =0
+    private var pos =0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_style, parent, false)
@@ -28,17 +29,22 @@ class ArticlesAdapterRecyclerView(
 
     fun addData(data: ModelResponse) {
         list.addAll(data.articles)
+        originalList.addAll(list)
         notifyDataSetChanged()
+    }
 
+    fun getPosition(): Int{
+        return pos
+    }
+
+    fun getOriginalList(): MutableList<Article> {
+        return originalList
     }
 
     override fun getItemCount(): Int = list.size
 
-
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ArticlesAdapterViewHolder) {
-            Log.i(TAG, "onBindViewHolder: $position")
             pos = position
             holder.bind(list[position])
         }

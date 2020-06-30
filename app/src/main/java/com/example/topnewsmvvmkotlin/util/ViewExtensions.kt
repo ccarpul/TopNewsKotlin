@@ -1,7 +1,9 @@
 package com.example.topnewsmvvmkotlin.util
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
@@ -62,6 +64,7 @@ fun Spinner.show(){ this.visibility = View.VISIBLE }
 fun RecyclerView.isLastArticleDisplayed(linearLayoutManager: LinearLayoutManager): Boolean {
 
     val totalItems = this.adapter?.itemCount
+    Log.i(TAG, "isLastArticleDisplayed: $totalItems")
     if (totalItems != 0) {
         if (RecyclerView.NO_POSITION != linearLayoutManager.findLastCompletelyVisibleItemPosition() &&
             linearLayoutManager.findLastCompletelyVisibleItemPosition() == totalItems?.minus(1)

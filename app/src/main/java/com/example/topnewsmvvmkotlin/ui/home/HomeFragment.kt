@@ -2,9 +2,11 @@ package com.example.topnewsmvvmkotlin.ui.home
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -34,6 +36,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     override fun onAttach(context: Context) {
         super.onAttach(context)
         setQuery(arguments)
+        homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
         Log.i(TAG, "onAttach: ")
     }
 
@@ -47,28 +50,26 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel.modelArticles.observe(this.viewLifecycleOwner, Observer(::upDateUi))
         Log.i(TAG, "onCreateView: ")
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupRecyclerView()
         onScrollTopNews()
     }
 
     private fun upDateUi(state: HomeViewModel.StateLiveData) {
         when (state) {
             is HomeViewModel.StateLiveData.InitialStateUi -> {
-                setupRecyclerView()
                 homeViewModel.getDataArticles()
             }
             is HomeViewModel.StateLiveData.PreCall -> {/*TODO progressBar.Show()*/
             }
             is HomeViewModel.StateLiveData.RefreshStateUi -> {
 
-                if (homeViewModel.totalResult == 0) {
+                if (homeViewModel.getTotalResults() == 0) {
                     findNavController().navigate(R.id.filtersFragment)
                     makeToast(context, getString(R.string.noResults))
                 }
@@ -77,10 +78,10 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.PostCall -> { /*TODO progressBar.Hide()*/
             }
             is HomeViewModel.StateLiveData.AdapterRecycler -> {
-                setupRecyclerView()
-                for (data in state.prueba) adapterRecycler.addData(data)
+                for (data in state.prueba)
+                    adapterRecycler.addData(data)
                 topNews_recyclerView.layoutManager?.scrollToPosition(homeViewModel.pos.minus(1))
-
+                Log.i(TAG, "upDateUi: ${topNews_recyclerView.layoutManager?.itemCount}")
             }
         }
     }
@@ -90,27 +91,21 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         topNews_recyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = adapterRecycler
-            /*
-            if (adapter == null) {
-                adapter = adapterRecycler
-                homeViewModel.adapterRecycler = adapterRecycler
-            }*/
         }
-
     }
 
     private fun onScrollTopNews() {
         topNews_recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                homeViewModel.pos = adapterRecycler.pos
+                Log.i(TAG, "onScrolled: ")
+                homeViewModel.pos = adapterRecycler.getPosition()
                 if (topNews_recyclerView.isLastArticleDisplayed(linearLayoutManager)) {
-                    if (homeViewModel.page++ * Constants.PAGESIZE < homeViewModel.totalResult) {
+                    if (homeViewModel.page++ * Constants.PAGESIZE < homeViewModel.getTotalResults()) {
                         homeViewModel.getDataArticles()
-                        Log.i(TAG, "onScrolled: $homeViewModel.totalResult")
+
                     } else {
-                        Log.i(TAG, "onScrolled: $homeViewModel.totalResult")
-                        Log.i(TAG, "onScrolled: ${homeViewModel.page * Constants.PAGESIZE}")
                         makeToast(context, getString(R.string.allArticlesdisplayed))
                     }
                 }
