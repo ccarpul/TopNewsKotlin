@@ -17,9 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
-import com.example.topnewsmvvmkotlin.util.Constants
-import com.example.topnewsmvvmkotlin.util.isLastArticleDisplayed
-import com.example.topnewsmvvmkotlin.util.makeToast
+import com.example.topnewsmvvmkotlin.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.recycler_style.*
@@ -37,20 +35,10 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         super.onAttach(context)
         setQuery(arguments)
         homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
-        Log.i(TAG, "onAttach: ")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        Log.i(TAG, "onCreate: ")
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        Log.i(TAG, "onCreateView: ")
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -65,8 +53,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.InitialStateUi -> {
                 homeViewModel.getDataArticles()
             }
-            is HomeViewModel.StateLiveData.PreCall -> {/*TODO progressBar.Show()*/
-            }
+            is HomeViewModel.StateLiveData.PreCall -> {progressBar.show()}
+
             is HomeViewModel.StateLiveData.RefreshStateUi -> {
 
                 if (homeViewModel.getTotalResults() == 0) {
@@ -75,13 +63,12 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
                 }
                 adapterRecycler.addData(state.response)
             }
-            is HomeViewModel.StateLiveData.PostCall -> { /*TODO progressBar.Hide()*/
-            }
+            is HomeViewModel.StateLiveData.PostCall -> {progressBar.hide()}
+
             is HomeViewModel.StateLiveData.AdapterRecycler -> {
                 for (data in state.prueba)
                     adapterRecycler.addData(data)
                 topNews_recyclerView.layoutManager?.scrollToPosition(homeViewModel.pos.minus(1))
-                Log.i(TAG, "upDateUi: ${topNews_recyclerView.layoutManager?.itemCount}")
             }
         }
     }
@@ -99,7 +86,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                Log.i(TAG, "onScrolled: ")
                 homeViewModel.pos = adapterRecycler.getPosition()
                 if (topNews_recyclerView.isLastArticleDisplayed(linearLayoutManager)) {
                     if (homeViewModel.page++ * Constants.PAGESIZE < homeViewModel.getTotalResults()) {
