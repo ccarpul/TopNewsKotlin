@@ -66,7 +66,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.PostCall -> {progressBar.hide()}
 
             is HomeViewModel.StateLiveData.AdapterRecycler -> {
-                for (data in state.prueba)
+                for (data in state.dataRecyclerView)
                     adapterRecycler.addData(data)
                 topNews_recyclerView.layoutManager?.scrollToPosition(homeViewModel.pos.minus(1))
             }

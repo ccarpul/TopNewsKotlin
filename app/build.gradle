@@ -25,7 +25,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes.each{
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        def newsApiKey = properties.getProperty("newsApiKey", "")
+        it.buildConfigField 'String', "NEWS_APIKEY", newsApiKey
+        it.resValue 'string', "apiKey", newsApiKey
+    }
 }
+
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])

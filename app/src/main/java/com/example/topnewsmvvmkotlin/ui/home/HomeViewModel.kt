@@ -1,15 +1,10 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
-
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
-import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.Constants
 import com.example.topnewsmvvmkotlin.util.ResultWrapper
 import kotlinx.coroutines.*
@@ -24,8 +19,6 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     var pos = 0
     private var totalResult = Constants.TOTAL_RESULTS_INIT
 
-
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
     /**Sobreesribiendo la variable coroutineContext para usar la
@@ -37,7 +30,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
         object PreCall:        StateLiveData()
         class  RefreshStateUi(val response: ModelResponse) : StateLiveData()
         object PostCall:        StateLiveData()
-        class AdapterRecycler(val prueba: ArrayList<ModelResponse>): StateLiveData()
+        class AdapterRecycler(val dataRecyclerView: ArrayList<ModelResponse>): StateLiveData()
     }
 
     private val uiModelArticles = MutableLiveData<StateLiveData>()
