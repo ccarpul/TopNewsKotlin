@@ -31,7 +31,8 @@ class DeepLinkFragment : Fragment() {
             webViewClient = WebViewClient()
             loadUrl(args?.url)
             webViewClient = object : android.webkit.WebViewClient() {
-                override fun onPageFinished(view: WebView, url: String) { progressBar.hide() }
+                override fun onPageFinished(view: WebView, url: String) {
+                    if(progressBarWebView != null) progressBarWebView.hide() }
             }
         }
     }

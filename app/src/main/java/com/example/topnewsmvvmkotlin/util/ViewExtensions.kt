@@ -57,7 +57,7 @@ fun Spinner.hide(){
     setSelection(0)
 }
 
-fun View.hide(){ visibility = View.GONE }
+fun View.hide(){ visibility = View.INVISIBLE}
 
 fun View.show(){ visibility = View.VISIBLE }
 
