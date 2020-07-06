@@ -2,20 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/homeFragment"
+    <item android:id="@+id/homeFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home_24"
         android:title="@string/topNews"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/filtersFragment"
+    <item android:id="@+id/filtersFragment"
         android:enabled="true"
         android:icon="@drawable/ic_equalizer_24"
         android:title="@string/filters"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/aboutFragment"
+    <item android:id="@+id/aboutFragment"
         android:enabled="true"
         android:icon="@drawable/ic_portrait_24"
         android:title="@string/aboutMenu"

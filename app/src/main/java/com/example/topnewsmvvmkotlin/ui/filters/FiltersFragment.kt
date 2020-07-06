@@ -1,6 +1,8 @@
 package com.example.topnewsmvvmkotlin.ui.filters
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +56,7 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
                      .actionFiltersFragmentToHomeFragment()
                      .setDefaulValuesFilter(valuesFiltersToHomeFragment)
 
-            Navigation.findNavController(v).navigate(passValuesFilters)
+            //Navigation.findNavController(v).navigate(passValuesFilters)
         }
         else makeToast(context, resources.getString(R.string.wrongChoice))
 

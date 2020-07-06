@@ -1,12 +1,9 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -15,12 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.recycler_style.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 

@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
@@ -57,9 +58,9 @@ fun Spinner.hide(){
     setSelection(0)
 }
 
-fun View.hide(){ visibility = View.INVISIBLE}
+fun View.hide(){ isVisible = false}  //Using KTX
 
-fun View.show(){ visibility = View.VISIBLE }
+fun View.show(){ isVisible = true }
 
 fun RecyclerView.isLastArticleDisplayed(linearLayoutManager: LinearLayoutManager): Boolean {
 
