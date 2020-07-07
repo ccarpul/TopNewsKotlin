@@ -1,6 +1,7 @@
 package com.example.topnewsmvvmkotlin.ui.browser
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +12,16 @@ import androidx.fragment.app.Fragment
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.util.WebViewClient
 import com.example.topnewsmvvmkotlin.util.hide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_deeplink.*
 
 class DeepLinkFragment : Fragment() {
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val bottonNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
+        bottonNavView?.hide()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

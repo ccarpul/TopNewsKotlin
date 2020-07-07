@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,12 +34,15 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bottonNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
+        bottonNavView?.show()
         setupRecyclerView()
         onScrollTopNews()
     }
@@ -47,7 +52,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.InitialStateUi -> {
                 homeViewModel.getDataArticles()
             }
-            is HomeViewModel.StateLiveData.PreCall -> {progressBar.show()}
+            is HomeViewModel.StateLiveData.PreCall -> {
+                progressBar.show()
+            }
 
             is HomeViewModel.StateLiveData.RefreshStateUi -> {
 
@@ -57,7 +64,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
                 }
                 adapterRecycler.addData(state.response)
             }
-            is HomeViewModel.StateLiveData.PostCall -> {progressBar.hide()}
+            is HomeViewModel.StateLiveData.PostCall -> {
+                progressBar.hide()
+            }
 
             is HomeViewModel.StateLiveData.AdapterRecycler -> {
                 for (data in state.dataRecyclerView)

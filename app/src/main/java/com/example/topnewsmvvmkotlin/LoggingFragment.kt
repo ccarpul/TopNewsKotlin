@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.topnewsmvvmkotlin.util.hide
 import com.example.topnewsmvvmkotlin.util.makeToast
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_logging.*
 
 
@@ -24,6 +27,13 @@ class LoggingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLoggin()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val bottonNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
+        bottonNavView?.hide()
     }
 
     fun setupLoggin(){
