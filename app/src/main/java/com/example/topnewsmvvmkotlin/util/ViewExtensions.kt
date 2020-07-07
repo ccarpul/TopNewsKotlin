@@ -9,6 +9,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
@@ -79,6 +80,7 @@ fun makeToast(context: Context?, message: String) {
     val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
     val layout = toast.view as LinearLayout
     layout.setBackgroundResource(R.drawable.shape_toast)
+    layout.setPadding(20)
     val viewMessage = layout.getChildAt(0) as TextView
     viewMessage.setTextColor(Color.WHITE)
     viewMessage.textSize = 16f

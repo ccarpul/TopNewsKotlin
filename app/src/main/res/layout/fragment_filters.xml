@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_fields_navigation_drawer"
         android:layout_marginTop="12dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFilterSource"
         tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/spinner_style" />

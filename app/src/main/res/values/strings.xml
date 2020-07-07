@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">TopNewsMvvmKotlin</string>
-    <string name="top_news">Top News</string>
-    <string name="title_name">Top News</string>
+    <string name="app_name">Top News</string>
 
     <string-array name="countries">
         <item> \u0020 All Countries</item>
@@ -126,13 +124,11 @@
                         Retrofit library from Newsapi.org \n\n\n And It was made on MVVM
                         arquitecture \n\n\nVersion 1.2 \n\n\n
                         CarPuL Company ©"</string>
-    <string name="wrongChoice">Please Choice Another Option</string>
-    <string name="allArticlesdisplayed">Es Todo!</string>
+    <string name="wrongChoice">Please choice another option</string>
+    <string name="allArticlesdisplayed">Fin de lista</string>
     <string name="topNews">Top News</string>
     <string name="filters">Filters</string>
     <string name="aboutMenu">About</string>
-    <string name="noResults">No Results</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="noResults">No results</string>
 
 </resources>

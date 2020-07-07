@@ -41,8 +41,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottonNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
-        bottonNavView?.show()
+        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
+        bottomNavView?.show()
         setupRecyclerView()
         onScrollTopNews()
     }
