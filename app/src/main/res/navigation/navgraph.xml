@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigationView"
-    app:startDestination="@id/homeFragment">
+    android:label="LogginFragment"
+    app:startDestination="@id/loggingFragment">
 
-    <fragment android:id="@+id/homeFragment"
+    <fragment
+        android:id="@+id/homeFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.home.HomeFragment"
         android:label="FragmentHome"
         tools:layout="@layout/fragment_home">
@@ -15,14 +17,15 @@
         <action
             android:id="@+id/action_homeFragment_to_filtersFragment"
             app:popUpTo="@id/filtersFragment"
-            app:popUpToInclusive="true">
-        </action>
+            app:popUpToInclusive="true"/>
         <argument
             android:name="defaulValuesFilter"
-            app:argType="string"
-            android:defaultValue=" , , ,en,"/>
+            android:defaultValue=" , , ,en,"
+            app:argType="string" />
+
     </fragment>
-    <fragment android:id="@+id/filtersFragment"
+    <fragment
+        android:id="@+id/filtersFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.filters.FiltersFragment"
         android:label="FragmentFilter"
         tools:layout="@layout/fragment_filters">
@@ -31,7 +34,8 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
-    <fragment android:id="@+id/deepLinkFragment"
+    <fragment
+        android:id="@+id/deepLinkFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.browser.DeepLinkFragment"
         android:label="fragment_deeplink"
         tools:layout="@layout/fragment_deeplink">
@@ -42,9 +46,19 @@
             android:id="@+id/action_deepLinkFragment_to_homeFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
-    <fragment android:id="@+id/aboutFragment"
+    <fragment
+        android:id="@+id/aboutFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.about.AboutFragment"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about"
-        app:popUpTo="@id/homeFragment" />
+        app:popUpTo="@id/homeFragment"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/loggingFragment"
+        android:name="com.example.topnewsmvvmkotlin.LoggingFragment"
+        android:label="fragment_logging"
+        tools:layout="@layout/fragment_logging">
+        <action
+            android:id="@+id/action_loggingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
