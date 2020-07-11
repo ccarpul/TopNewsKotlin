@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -15,7 +16,7 @@ import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -27,24 +28,46 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     private var adapterRecycler: ArticlesAdapterRecyclerView =
         ArticlesAdapterRecyclerView(mutableListOf(), this)
 
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         setQuery(arguments)
+
+
+        if (auth.currentUser == null) {
+            findNavController().apply {
+                popBackStack()
+                navigate(R.id.loginFragment)
+            }
+
+        }
         homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
-        bottomNavView?.show()
+
         setupRecyclerView()
         onScrollTopNews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
+        val titleApp = activity?.findViewById<TextView>(R.id.title)
+        bottomNavView?.show()
+        titleApp?.show()
     }
 
     private fun upDateUi(state: HomeViewModel.StateLiveData) {
@@ -59,7 +82,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.RefreshStateUi -> {
 
                 if (homeViewModel.getTotalResults() == 0) {
-                    findNavController().navigate(R.id.filtersFragment)
+                    findNavController().popBackStack(R.id.filtersFragment, false)
                     makeToast(context, getString(R.string.noResults))
                 }
                 adapterRecycler.addData(state.response)

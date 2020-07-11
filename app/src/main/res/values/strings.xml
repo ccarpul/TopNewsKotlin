@@ -130,5 +130,23 @@
     <string name="filters">Filters</string>
     <string name="aboutMenu">About</string>
     <string name="noResults">No results</string>
+    <string name="promptEmail">Email</string>
+    <string name="promptPassword">Password</string>
+    <string name="actionSignIn">Sign in</string>
+    <string name="actionRegister">Register</string>
+    <string name="invalidUsername">Not a valid username</string>
+    <string name="invalidPassword">Password must be >5 characters</string>
+    <string name="loginFailed">"Login failed"</string>
+
+    <!--FireBase-->
+
+    <string name="networkError">com.google.firebase.FirebaseNetworkException: A network error
+        (such as timeout, interrupted connection or unreachable host) has occurred.</string>
+
+    <string name="formatError">com.google.firebase.auth.FirebaseAuthInvalidCredentialsException:
+        The email address is badly formatted.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

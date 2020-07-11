@@ -11,7 +11,10 @@ import java.io.IOException
  * Copyright (c) 2020 m-salcedo. All rights reserved.
  */
 
-suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
+suspend fun <T> safeApiCall(
+    dispatcher: CoroutineDispatcher,
+    apiCall: suspend () -> T
+): ResultWrapper<T> {
 
     return withContext(dispatcher) {
         try {
@@ -32,6 +35,30 @@ suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend ()
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()
-    data class GenericError(val code: Int? = null, val error: String? = null) : ResultWrapper<Nothing>()
+    data class GenericError(val code: Int? = null, val error: String? = null) :
+        ResultWrapper<Nothing>()
+
     data class NetworkError(val throwable: HttpException) : ResultWrapper<Nothing>()
 }
+
+//Login with Firebase
+
+sealed class Result<out T> {
+
+    data class Success<out T>(val value: T) : Result<T>()
+    data class GenericError(val error: String?) : Result<Nothing>()
+
+    override fun toString(): String {
+        return when (this) {
+            is Success -> "Success: $value"
+            is GenericError -> "ErrorGeneric"
+
+        }
+    }
+}
+
+data class LoginFormState(
+    val usernameError: Int? = null,
+    val passwordError: Int? = null,
+    val isDataValid: Boolean = false
+)

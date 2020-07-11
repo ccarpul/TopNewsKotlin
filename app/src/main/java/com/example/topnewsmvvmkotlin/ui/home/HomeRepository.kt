@@ -5,15 +5,20 @@ import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.util.Constants
 import com.example.topnewsmvvmkotlin.util.ResultWrapper
 import com.example.topnewsmvvmkotlin.util.safeApiCall
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Response
+import retrofit2.HttpException
+import java.io.IOException
 
 class HomeRepository(private val newsApiClient: NewsApiClient) {
 
     val dispatcher = Dispatchers.IO
 
     //queryFilters [source, langunage, country, category]
-    suspend fun getArticles(page: Int, queryFilters: List<String>): ResultWrapper<ModelResponse> =
+    suspend fun getArticles(page: Int, queryFilters: List<String>):
+            ResultWrapper<ModelResponse> =
         withContext(Dispatchers.IO) {
             safeApiCall(dispatcher) { newsApiClient.getArticles(
                     page, Constants.PAGESIZE,

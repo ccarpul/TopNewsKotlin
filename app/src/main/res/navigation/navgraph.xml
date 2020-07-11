@@ -3,27 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigationView"
-    android:label="homeFragment"
-    app:startDestination="@id/loggingFragment">
+    app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.topnewsmvvmkotlin.ui.home.HomeFragment"
-        android:label="FragmentHome"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_deepLinkFragment"
-            app:destination="@id/deepLinkFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_filtersFragment"
-            app:popUpTo="@id/filtersFragment"
-            app:popUpToInclusive="true"/>
-        <argument
-            android:name="defaulValuesFilter"
-            android:defaultValue=" , , ,en,"
-            app:argType="string" />
-
-    </fragment>
     <fragment
         android:id="@+id/filtersFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.filters.FiltersFragment"
@@ -44,21 +25,35 @@
             app:argType="string" />
         <action
             android:id="@+id/action_deepLinkFragment_to_homeFragment"
-            app:popUpTo="@id/homeFragment" />
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.topnewsmvvmkotlin.ui.home.HomeFragment"
+        android:label="FragmentHome"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_deepLinkFragment"
+            app:destination="@id/deepLinkFragment" />
+        <argument
+            android:name="defaulValuesFilter"
+            android:defaultValue=" , , ,en,"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.topnewsmvvmkotlin.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.topnewsmvvmkotlin.ui.about.AboutFragment"
         android:label="fragment_about"
-        app:popUpTo="@id/homeFragment"
         tools:layout="@layout/fragment_about" />
-    <fragment
-        android:id="@+id/loggingFragment"
-        android:name="com.example.topnewsmvvmkotlin.LoggingFragment"
-        android:label="fragment_logging"
-        tools:layout="@layout/fragment_logging">
-        <action
-            android:id="@+id/action_loggingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
 </navigation>

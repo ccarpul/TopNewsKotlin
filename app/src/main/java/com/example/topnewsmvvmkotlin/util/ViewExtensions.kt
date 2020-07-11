@@ -2,12 +2,11 @@ package com.example.topnewsmvvmkotlin.util
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,7 +76,7 @@ fun RecyclerView.isLastArticleDisplayed(linearLayoutManager: LinearLayoutManager
 
 fun makeToast(context: Context?, message: String) {
 
-    val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
+    val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
     val layout = toast.view as LinearLayout
     layout.setBackgroundResource(R.drawable.shape_toast)
     layout.setPadding(20)
@@ -88,4 +87,16 @@ fun makeToast(context: Context?, message: String) {
         setGravity(Gravity.BOTTOM, 0, 200)
         show()
     }
+}
+
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
 }

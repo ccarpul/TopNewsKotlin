@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.topnewsmvvmkotlin.R
 
 class AboutFragment : Fragment() {
@@ -16,6 +20,10 @@ class AboutFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
+
+
+
+
 
 
 }
