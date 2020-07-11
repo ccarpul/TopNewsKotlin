@@ -82,7 +82,11 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.RefreshStateUi -> {
 
                 if (homeViewModel.getTotalResults() == 0) {
-                    findNavController().popBackStack(R.id.filtersFragment, false)
+                    findNavController().apply{
+                        popBackStack()
+                        navigate(R.id.filtersFragment)
+                    }
+
                     makeToast(context, getString(R.string.noResults))
                 }
                 adapterRecycler.addData(state.response)
