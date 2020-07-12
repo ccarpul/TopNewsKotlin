@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
 
             when (it) {
 
-                is LoginViewModel.StateLiveData.PreLogin -> progressbarlayout.show()
+                is LoginViewModel.StateLiveData.PreLogin -> progressbarLayout.show()
                 is LoginViewModel.StateLiveData.RefreshUi -> {
                     when (it.result) {
                         is Result.Success -> {
@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
                         }
                     }
                 }
-                is LoginViewModel.StateLiveData.PostLogin -> progressbarlayout.hide()
+                is LoginViewModel.StateLiveData.PostLogin -> progressbarLayout.hide()
 
             }
         })
