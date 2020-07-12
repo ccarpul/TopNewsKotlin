@@ -1,29 +1,38 @@
 package com.example.topnewsmvvmkotlin.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
+import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
+import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.recycler_style.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
     private val homeViewModel: HomeViewModel by viewModel() //inyección de dependencia
+
+    lateinit var navBottomNavigation: BottomNavigationView
+    lateinit var titleActionBar: TextView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var adapterRecycler: ArticlesAdapterRecyclerView =
         ArticlesAdapterRecyclerView(mutableListOf(), this)
@@ -55,6 +64,12 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        navBottomNavigation = (activity as MainActivity).findViewById(R.id.navBottomNavigation)
+        titleActionBar= (activity as MainActivity).findViewById(R.id.titleActionBar)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,10 +79,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
     override fun onResume() {
         super.onResume()
-        val bottomNavView = activity?.findViewById<BottomNavigationView>(R.id.navBottomNavigation)
-        val titleApp = activity?.findViewById<TextView>(R.id.title)
-        bottomNavView?.show()
-        titleApp?.show()
+        titleActionBar.show()
     }
 
     private fun upDateUi(state: HomeViewModel.StateLiveData) {
@@ -86,13 +98,13 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
                         popBackStack()
                         navigate(R.id.filtersFragment)
                     }
-
                     makeToast(context, getString(R.string.noResults))
                 }
                 adapterRecycler.addData(state.response)
             }
             is HomeViewModel.StateLiveData.PostCall -> {
                 progressBar.hide()
+                if(!navBottomNavigation.isVisible) navBottomNavigation.show()
             }
 
             is HomeViewModel.StateLiveData.AdapterRecycler -> {
@@ -135,6 +147,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
+        Log.i("Carpul", "onClick: $query")
         val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)
     }

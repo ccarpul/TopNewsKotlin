@@ -55,13 +55,10 @@ class LoginFragment : Fragment() {
                 is LoginViewModel.StateLiveData.RefreshUi -> {
                     when (it.result) {
                         is Result.Success -> {
-                            //TODO activar el otro controller
                             findNavController().apply {
                                 popBackStack()
                                 navigate(R.id.homeFragment)
                             }
-
-
                         }
                         is Result.GenericError -> {
                             firebaseErrors(it.result.error.toString())
