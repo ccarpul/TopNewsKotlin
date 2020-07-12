@@ -133,6 +133,7 @@ class LoginFragment : Fragment() {
                 context,
                 "Please check your Email format"
             )
+            resources.getString(R.string.emailInUse) -> makeToast(context,"Email in Use")
             else -> makeToast(context, resources.getString(R.string.loginFailed))
         }
     }

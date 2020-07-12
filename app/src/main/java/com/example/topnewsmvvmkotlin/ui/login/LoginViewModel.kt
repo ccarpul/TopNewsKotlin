@@ -41,7 +41,7 @@ class LoginViewModel() : ViewModel(), CoroutineScope {
 
             try {
 
-                if (action == LoginFragment.ActionFireBase.REGISTER) {
+                if (action == LoginFragment.ActionFireBase.LOGIN) {
                     Log.i("Carpul", "loginFireBase: SignUp")
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
                         .addOnCompleteListener {

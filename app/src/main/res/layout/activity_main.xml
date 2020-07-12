@@ -20,7 +20,8 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <fragment
         android:id="@+id/navHostFragment"
@@ -28,12 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleActionBar"
         app:navGraph="@navigation/navgraph"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_deeplink" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBottomNavigation"
@@ -44,7 +45,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="6dp"
         android:background="@drawable/custom_bg_bottomnavigation"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"

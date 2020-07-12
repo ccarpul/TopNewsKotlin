@@ -22,13 +22,8 @@ import kotlinx.android.synthetic.main.fragment_deeplink.*
 class DeepLinkFragment : Fragment() {
 
     private lateinit var bottomNavView: BottomNavigationView
-    private lateinit var titleActionBar: TextView
+    //private lateinit var titleActionBar: TextView
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        Log.i("Carpul", "onAttach: DeepLinkFragment")
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +36,7 @@ class DeepLinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomNavView = activity?.findViewById(R.id.navBottomNavigation)!!
-        titleActionBar = activity?.findViewById(R.id.titleActionBar)!!
+        //titleActionBar = activity?.findViewById(R.id.titleActionBar)!!
         bottomNavView.hide()
 
         val args = arguments?.let { DeepLinkFragmentArgs.fromBundle(it) }
@@ -53,7 +48,8 @@ class DeepLinkFragment : Fragment() {
             loadUrl(args?.url)
             webViewClient = object : android.webkit.WebViewClient() {
                 override fun onPageFinished(view: WebView, url: String) {
-                    if(progressBarWebView != null) progressBarWebView.hide() }
+                    if(progressBarWebView != null) progressBarWebView.hide()
+                }
             }
         }
     }
@@ -61,6 +57,6 @@ class DeepLinkFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         bottomNavView.show()
-        titleActionBar.show()
+        //titleActionBar.show()
     }
 }
