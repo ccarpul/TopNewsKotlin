@@ -116,7 +116,7 @@
         </Button>
 
         <Button
-            android:id="@+id/buttomGoogle"
+            android:id="@+id/buttonGoogle"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="60dp"

@@ -40,7 +40,6 @@ class DeepLinkFragment : Fragment() {
         bottomNavView.hide()
 
         val args = arguments?.let { DeepLinkFragmentArgs.fromBundle(it) }
-        Log.i("Carpul", "onViewCreated: $args")
 
         webView.apply {
 

@@ -1,6 +1,7 @@
 package com.example.topnewsmvvmkotlin.ui.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,17 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.activity.addCallback
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.util.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -29,7 +29,10 @@ class LoginFragment : Fragment() {
 
     enum class ActionFireBase{
         LOGIN,
-        REGISTER
+        REGISTER,
+        GOOGLE,
+        TWITTER,
+        FACEBOOK
     }
 
     override fun onAttach(context: Context) {
@@ -66,7 +69,6 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is LoginViewModel.StateLiveData.PostLogin -> progressbarLayout.hide()
-
             }
         })
     }
@@ -86,7 +88,6 @@ class LoginFragment : Fragment() {
                 editTextPassword.text.toString()
             )
         }
-
         editTextPassword.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
@@ -100,41 +101,67 @@ class LoginFragment : Fragment() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.loginFireBase(
-                            editTextEmail.text.toString(),
-                            editTextPassword.text.toString(),
-                            ActionFireBase.LOGIN
-                        )
+                     loginViewModel.loginFireBase(editTextEmail.text.toString()
+                         , editTextPassword.text.toString(), ActionFireBase.LOGIN, null)
                 }
                 false
             }
         }
 
         loginButton.setOnClickListener { loginViewModel.loginFireBase(editTextEmail.text.toString(),
-                editTextPassword.text.toString(), ActionFireBase.LOGIN)
+                editTextPassword.text.toString(), ActionFireBase.LOGIN, null)
         }
-
-
         signUpButton.setOnClickListener { loginViewModel.loginFireBase(editTextEmail.text.toString(),
-                editTextPassword.text.toString(), ActionFireBase.REGISTER)
+                editTextPassword.text.toString(), ActionFireBase.REGISTER,null)
         }
+        buttonGoogle.setOnClickListener{
+
+            val googleConfig =
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail().build()
+            val googleClient = GoogleSignIn.getClient(requireContext(), googleConfig)
+
+            googleClient.signOut()
+
+            startActivityForResult(googleClient.signInIntent, 100)
+
+        }
+        buttonTwitter.setOnClickListener{
+            loginViewModel.loginFireBase("", "", ActionFireBase.TWITTER, null)}
+        buttonFacebook.setOnClickListener{
+            loginViewModel.loginFireBase("", "", ActionFireBase.FACEBOOK, null)}
     }
 
 
-    fun firebaseErrors(error: String) {
-        Log.i("Carpul", "error $error")
-        Log.i("Carpul", "R.string.formatError ${resources.getString(R.string.formatError)}")
+    fun firebaseErrors(error: String?) {
+
         when (error) {
-            resources.getString(R.string.networkError) -> makeToast(
-                context,
-                "Please check your conection"
-            )
-            resources.getString(R.string.formatError) -> makeToast(
-                context,
-                "Please check your Email format"
-            )
-            resources.getString(R.string.emailInUse) -> makeToast(context,"Email in Use")
+            getString(R.string.networkError) -> makeToast(context, "Please check your conection")
+            getString(R.string.formatError) -> makeToast(context, "Please check your Email format")
+            getString(R.string.emailInUse) -> makeToast(context,"Email in Use")
+            getString(R.string.apiException)  -> makeToast(context,"Choice an option")
             else -> makeToast(context, resources.getString(R.string.loginFailed))
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 100){
+            val task = GoogleSignIn
+                .getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    val credential= GoogleAuthProvider
+                        .getCredential(account.idToken, null)
+                        loginViewModel.loginFireBase("", "",
+                            ActionFireBase.GOOGLE, credential = credential)
+                }
+            } catch (e: ApiException) {
+                firebaseErrors(e.localizedMessage)
+            }
         }
     }
 
