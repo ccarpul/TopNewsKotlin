@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.navigationdrawer_body.view.*
 val imageSources = intArrayOf(
     R.drawable.language_icon, R.drawable.ic_abc_news, R.drawable.ic_bbc_news, R.drawable.ic_bbc_news,
     R.drawable.ic_bloomberg, R.drawable.ic_cnn, R.drawable.ic_cnn, R.drawable.ic_espn,
-    R.drawable.ic_fox_news, R.drawable.ic_fox_news, R.drawable.ic_globo, R.drawable.ic_google)
+    R.drawable.ic_fox_news, R.drawable.ic_fox_news, R.drawable.ic_globo, R.drawable.ic_google2)
 val flagLanguages = intArrayOf(
     R.drawable.language_icon, R.drawable.ic_us, R.drawable.ic_ve,
     R.drawable.ic_fr, R.drawable.ic_it, R.drawable.ic_pt)

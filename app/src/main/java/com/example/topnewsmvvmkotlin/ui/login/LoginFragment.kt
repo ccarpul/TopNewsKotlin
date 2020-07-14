@@ -12,6 +12,9 @@ import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.topnewsmvvmkotlin.R
+import com.example.topnewsmvvmkotlin.data.getApiService
+import com.example.topnewsmvvmkotlin.data.getClientGoogle
+import com.example.topnewsmvvmkotlin.data.getCredentialGoogle
 import com.example.topnewsmvvmkotlin.util.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -19,6 +22,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.TwitterAuthCredential
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -27,7 +33,7 @@ class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by viewModel()
 
-    enum class ActionFireBase{
+    enum class ActionFireBase {
         LOGIN,
         REGISTER,
         GOOGLE,
@@ -64,7 +70,7 @@ class LoginFragment : Fragment() {
                             }
                         }
                         is Result.GenericError -> {
-                            firebaseErrors(it.result.error.toString())
+                            firebaseErrors(it.result.error.toString(), requireContext())
                         }
                     }
                 }
@@ -72,6 +78,7 @@ class LoginFragment : Fragment() {
             }
         })
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,68 +108,62 @@ class LoginFragment : Fragment() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                     loginViewModel.loginFireBase(editTextEmail.text.toString()
-                         , editTextPassword.text.toString(), ActionFireBase.LOGIN, null)
+                        loginViewModel.loginFireBase(editTextEmail.text.toString(),
+                            editTextPassword.text.toString(), ActionFireBase.LOGIN, null, null)
                 }
                 false
             }
         }
 
-        loginButton.setOnClickListener { loginViewModel.loginFireBase(editTextEmail.text.toString(),
-                editTextPassword.text.toString(), ActionFireBase.LOGIN, null)
+        loginButton.setOnClickListener {
+            loginViewModel.loginFireBase(
+                editTextEmail.text.toString(),
+                editTextPassword.text.toString(), ActionFireBase.LOGIN, null, null
+            )
         }
-        signUpButton.setOnClickListener { loginViewModel.loginFireBase(editTextEmail.text.toString(),
-                editTextPassword.text.toString(), ActionFireBase.REGISTER,null)
+        signUpButton.setOnClickListener {
+            loginViewModel.loginFireBase(
+                editTextEmail.text.toString(),
+                editTextPassword.text.toString(), ActionFireBase.REGISTER, null, null
+            )
         }
-        buttonGoogle.setOnClickListener{
+        buttonGoogle.setOnClickListener {
 
-            val googleConfig =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail().build()
-            val googleClient = GoogleSignIn.getClient(requireContext(), googleConfig)
+            val googleClient = getClientGoogle(requireContext())
 
             googleClient.signOut()
 
-            startActivityForResult(googleClient.signInIntent, 100)
+            startActivityForResult(googleClient.signInIntent, Constants.GOOGLE_LOGIN)
 
         }
-        buttonTwitter.setOnClickListener{
-            loginViewModel.loginFireBase("", "", ActionFireBase.TWITTER, null)}
-        buttonFacebook.setOnClickListener{
-            loginViewModel.loginFireBase("", "", ActionFireBase.FACEBOOK, null)}
-    }
+        buttonTwitter.setOnClickListener {
+            Firebase.auth.signOut()
+            loginViewModel.loginFireBase("", "", ActionFireBase.TWITTER, null, activity)
 
-
-    fun firebaseErrors(error: String?) {
-
-        when (error) {
-            getString(R.string.networkError) -> makeToast(context, "Please check your conection")
-            getString(R.string.formatError) -> makeToast(context, "Please check your Email format")
-            getString(R.string.emailInUse) -> makeToast(context,"Email in Use")
-            getString(R.string.apiException)  -> makeToast(context,"Choice an option")
-            else -> makeToast(context, resources.getString(R.string.loginFailed))
         }
+        buttonFacebook.setOnClickListener {
+            loginViewModel.loginFireBase("", "", ActionFireBase.FACEBOOK, null, null)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            Constants.GOOGLE_LOGIN -> try { val credential = getCredentialGoogle(data)
+                loginViewModel.loginFireBase("", "",
+                    ActionFireBase.GOOGLE, credential, null)
+            } catch (e: ApiException) { firebaseErrors(e.localizedMessage, requireContext()) }
 
-        if(requestCode == 100){
-            val task = GoogleSignIn
-                .getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    val credential= GoogleAuthProvider
-                        .getCredential(account.idToken, null)
-                        loginViewModel.loginFireBase("", "",
-                            ActionFireBase.GOOGLE, credential = credential)
-                }
-            } catch (e: ApiException) {
-                firebaseErrors(e.localizedMessage)
+
+            Constants.TWITTER_LOGIN -> {
+
+                Log.i("Carpul", "onActivityResult: twitter")
             }
-        }
-    }
+            Constants.FACEBOOK_LOGIN -> Log.i("Carpul", "onActivityResult: facebook")
 
+        }
+
+
+    }
 }

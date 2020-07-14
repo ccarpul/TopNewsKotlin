@@ -1,28 +1,30 @@
 package com.example.topnewsmvvmkotlin.ui.login
 
-import android.content.Context
-import android.content.Intent
+import android.app.Activity
 import android.util.Log
+import android.util.Patterns
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import androidx.fragment.app.Fragment
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.util.Result
+import com.example.topnewsmvvmkotlin.ui.MainActivity
+import com.example.topnewsmvvmkotlin.util.AuthResult
 import com.example.topnewsmvvmkotlin.util.LoginFormState
-import com.example.topnewsmvvmkotlin.util.makeToast
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
+import com.example.topnewsmvvmkotlin.util.Result
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthCredential
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.OAuthProvider
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class LoginViewModel() : ViewModel(), CoroutineScope {
+
+class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), CoroutineScope {
+
+    lateinit var result: Task<AuthResult>
 
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -44,64 +46,46 @@ class LoginViewModel() : ViewModel(), CoroutineScope {
             return _loginResult
         }
 
-    fun loginFireBase(
-        username: String, password: String, action: LoginFragment.ActionFireBase, credential: AuthCredential?) {
+    fun loginFireBase(username: String, password: String, action: LoginFragment.ActionFireBase,
+        credential: AuthCredential?, activity: FragmentActivity?) {
 
         launch {
             _loginResult.value = StateLiveData.PreLogin
 
             try {
                 when (action) {
+
                     LoginFragment.ActionFireBase.LOGIN -> {
-                        FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
+                        loginRepository.setLoginWithEmail(username, password)
                             .addOnCompleteListener {
-
-                                if (it.isSuccessful) {
-                                    _loginResult.value =
-                                        StateLiveData.RefreshUi(Result.Success(username))
-                                } else if (it.exception != null) {
-                                    _loginResult.value = StateLiveData
-                                        .RefreshUi(Result.GenericError(it.exception.toString()))
-                                }
+                                _loginResult.value = it.AuthResult()
                                 _loginResult.value = StateLiveData.PostLogin
-
                             }
                     }
                     LoginFragment.ActionFireBase.REGISTER -> {
-                        FirebaseAuth.getInstance()
-                            .createUserWithEmailAndPassword(username, password)
+                        loginRepository.setRegisterWithEmail(username, password)
                             .addOnCompleteListener {
-
-                                if (it.isSuccessful) {
-                                    _loginResult.value =
-                                        StateLiveData.RefreshUi(Result.Success(username))
-                                } else if (it.exception != null) {
-                                    _loginResult.value = StateLiveData
-                                        .RefreshUi(Result.GenericError(it.exception.toString()))
-                                }
+                                _loginResult.value = it.AuthResult()
                                 _loginResult.value = StateLiveData.PostLogin
 
                             }
                     }
                     LoginFragment.ActionFireBase.GOOGLE -> {
 
-                        FirebaseAuth.getInstance().signInWithCredential(credential!!)
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    _loginResult.value =
-                                        StateLiveData.RefreshUi(Result.Success(username))
-                                }else if(it.exception != null){
-                                    _loginResult.value = StateLiveData
-                                        .RefreshUi(Result.GenericError(it.exception.toString()))
-
-                                }
-                                _loginResult.value = StateLiveData.PostLogin
-                            }
+                        loginRepository.setLoginByGoogle(credential!!).addOnCompleteListener {
+                            _loginResult.value = it.AuthResult()
+                            _loginResult.value = StateLiveData.PostLogin
+                        }.addOnFailureListener { Log.i("Carpul", "${it.localizedMessage}") }
 
                     }
                     LoginFragment.ActionFireBase.TWITTER -> {
-                        _loginResult.value = StateLiveData.PostLogin
-                    }
+
+                        result = loginRepository.setLoginByTwitter(activity).addOnCompleteListener {
+                           _loginResult.value = result.AuthResult()
+                           _loginResult.value = StateLiveData.PostLogin
+                       }.addOnFailureListener { Log.i("Carpul", "${it.localizedMessage}")}
+
+                       }
                     LoginFragment.ActionFireBase.FACEBOOK -> {
                         _loginResult.value = StateLiveData.PostLogin
                     }

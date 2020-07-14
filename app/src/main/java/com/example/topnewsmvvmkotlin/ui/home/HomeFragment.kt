@@ -15,11 +15,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
+import com.example.topnewsmvvmkotlin.data.getClientGoogle
 import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
 import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -51,6 +53,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
                 navigate(R.id.loginFragment)
             }
 
+        }else{
+            val username = auth.currentUser!!.displayName
+            Log.i("Carpul", "${username}")
         }
         homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
 
@@ -68,6 +73,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         super.onActivityCreated(savedInstanceState)
         navBottomNavigation = (activity as MainActivity).findViewById(R.id.navBottomNavigation)
         titleActionBar= (activity as MainActivity).findViewById(R.id.titleActionBar)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
