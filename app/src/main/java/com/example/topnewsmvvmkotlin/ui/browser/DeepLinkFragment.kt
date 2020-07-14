@@ -17,12 +17,10 @@ import com.example.topnewsmvvmkotlin.util.WebViewClient
 import com.example.topnewsmvvmkotlin.util.hide
 import com.example.topnewsmvvmkotlin.util.show
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_deeplink.*
 
 class DeepLinkFragment : Fragment() {
-
-    private lateinit var bottomNavView: BottomNavigationView
-    //private lateinit var titleActionBar: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +33,9 @@ class DeepLinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottomNavView = activity?.findViewById(R.id.navBottomNavigation)!!
-        //titleActionBar = activity?.findViewById(R.id.titleActionBar)!!
-        bottomNavView.hide()
+        (activity as MainActivity).toolBar.hide()
+        (activity as MainActivity).navBottomNavigation.hide()
+
 
         val args = arguments?.let { DeepLinkFragmentArgs.fromBundle(it) }
 
@@ -55,7 +53,7 @@ class DeepLinkFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        bottomNavView.show()
-        //titleActionBar.show()
+        (activity as MainActivity).toolBar.show()
+        (activity as MainActivity).navBottomNavigation.show()
     }
 }

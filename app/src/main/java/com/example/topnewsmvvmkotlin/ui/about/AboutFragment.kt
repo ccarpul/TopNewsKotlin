@@ -10,6 +10,8 @@ import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.example.topnewsmvvmkotlin.R
+import com.example.topnewsmvvmkotlin.ui.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class AboutFragment : Fragment() {
 
@@ -21,9 +23,8 @@ class AboutFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
-
-
-
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).toolBar.title = "About"
+    }
 }

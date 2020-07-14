@@ -1,13 +1,13 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package com.example.topnewsmvvmkotlin.ui.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.view.*
+import android.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,16 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.getClientGoogle
+import com.example.topnewsmvvmkotlin.data.googleConfig
 import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
-import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.recycler_style.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -33,8 +33,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
     private val homeViewModel: HomeViewModel by viewModel() //inyección de dependencia
 
-    lateinit var navBottomNavigation: BottomNavigationView
-    lateinit var titleActionBar: TextView
+    private lateinit var toolBar: MaterialToolbar
+    private lateinit var navBottomNavigation: BottomNavigationView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var adapterRecycler: ArticlesAdapterRecyclerView =
         ArticlesAdapterRecyclerView(mutableListOf(), this)
@@ -45,7 +45,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     override fun onAttach(context: Context) {
         super.onAttach(context)
         setQuery(arguments)
-
+        toolBar = (activity as MainActivity).toolBar
+        toolBar.show()
 
         if (auth.currentUser == null) {
             findNavController().apply {
@@ -53,9 +54,9 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
                 navigate(R.id.loginFragment)
             }
 
-        }else{
-            val username = auth.currentUser!!.displayName
-            Log.i("Carpul", "${username}")
+        } else {
+            val username = auth.currentUser!!.email
+            toolBar.subtitle = username
         }
         homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
 
@@ -64,28 +65,28 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
-
         return inflater.inflate(R.layout.fragment_home, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        navBottomNavigation = (activity as MainActivity).findViewById(R.id.navBottomNavigation)
-        titleActionBar= (activity as MainActivity).findViewById(R.id.titleActionBar)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        navBottomNavigation = (activity as MainActivity).navBottomNavigation
+        toolBar.title = getString(R.string.app_name)
         setupRecyclerView()
         onScrollTopNews()
-    }
 
-    override fun onResume() {
-        super.onResume()
-        titleActionBar.show()
+        toolBar.setOnMenuItemClickListener {
+
+            if(it.itemId == R.id.logout) {
+
+                auth.signOut()
+                findNavController().apply {
+                    popBackStack()
+                    navigate(R.id.loginFragment)
+                }
+            }
+            false
+        }
     }
 
     private fun upDateUi(state: HomeViewModel.StateLiveData) {
@@ -100,7 +101,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             is HomeViewModel.StateLiveData.RefreshStateUi -> {
 
                 if (homeViewModel.getTotalResults() == 0) {
-                    findNavController().apply{
+                    findNavController().apply {
                         popBackStack()
                         navigate(R.id.filtersFragment)
                     }
@@ -110,7 +111,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             }
             is HomeViewModel.StateLiveData.PostCall -> {
                 progressBar.hide()
-                if(!navBottomNavigation.isVisible) navBottomNavigation.show()
+                if (!navBottomNavigation.isVisible) navBottomNavigation.show()
             }
 
             is HomeViewModel.StateLiveData.AdapterRecycler -> {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.MainActivity">
+
+    <item
+        android:id="@+id/empty"
+        android:orderInCategory="101"
+        android:icon="@drawable/ic_menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/setting"
+                android:orderInCategory="100"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Settings"
+                android:visible="false"
+                app:showAsAction="always|withText" />
+            <item
+                android:id="@+id/about"
+                android:orderInCategory="100"
+                android:title="About"
+                android:visible="false"
+                android:icon="@mipmap/ic_launcher"
+                app:showAsAction="always|withText" />
+            <item
+                android:id="@+id/logout"
+                android:orderInCategory="100"
+                android:title="Logout"
+                android:icon="@drawable/ic_logout"
+                app:showAsAction="always|withText" />
+        </menu>
+    </item>
+</menu>
+

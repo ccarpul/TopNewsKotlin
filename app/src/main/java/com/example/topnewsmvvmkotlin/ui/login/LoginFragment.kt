@@ -15,6 +15,7 @@ import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.getApiService
 import com.example.topnewsmvvmkotlin.data.getClientGoogle
 import com.example.topnewsmvvmkotlin.data.getCredentialGoogle
+import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.util.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -25,6 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.TwitterAuthCredential
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -55,11 +57,9 @@ class LoginFragment : Fragment() {
                 editTextPassword.error = getString(loginState.passwordError)
             }
         })
-
         loginViewModel.loginResult.observe(this, Observer {
 
             when (it) {
-
                 is LoginViewModel.StateLiveData.PreLogin -> progressbarLayout.show()
                 is LoginViewModel.StateLiveData.RefreshUi -> {
                     when (it.result) {
@@ -81,14 +81,13 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
+        savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_login, container, false) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as MainActivity).toolBar.visibility = View.INVISIBLE
         editTextEmail.afterTextChanged {
             loginViewModel.loginDataChanged(
                 editTextEmail.text.toString(),
@@ -114,7 +113,6 @@ class LoginFragment : Fragment() {
                 false
             }
         }
-
         loginButton.setOnClickListener {
             loginViewModel.loginFireBase(
                 editTextEmail.text.toString(),
@@ -130,9 +128,7 @@ class LoginFragment : Fragment() {
         buttonGoogle.setOnClickListener {
 
             val googleClient = getClientGoogle(requireContext())
-
             googleClient.signOut()
-
             startActivityForResult(googleClient.signInIntent, Constants.GOOGLE_LOGIN)
 
         }
@@ -144,7 +140,6 @@ class LoginFragment : Fragment() {
         buttonFacebook.setOnClickListener {
             loginViewModel.loginFireBase("", "", ActionFireBase.FACEBOOK, null, null)
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -163,7 +158,5 @@ class LoginFragment : Fragment() {
             Constants.FACEBOOK_LOGIN -> Log.i("Carpul", "onActivityResult: facebook")
 
         }
-
-
     }
 }
