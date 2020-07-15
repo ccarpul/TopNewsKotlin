@@ -8,6 +8,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FacebookAuthCredential
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +33,7 @@ fun getOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder().addInterceptor(logging).build()
 }
 
-/** Login*/
+/** Login Google*/
 
 val googleConfig =
 
@@ -43,8 +45,16 @@ fun getClientGoogle(context: Context): GoogleSignInClient {
     return GoogleSignIn.getClient(context, googleConfig)
 }
 
+
 fun getCredentialGoogle(data: Intent?): AuthCredential {
     val task = GoogleSignIn.getSignedInAccountFromIntent(data)
     val account = task.getResult(ApiException::class.java)
     return GoogleAuthProvider.getCredential(account?.idToken, null)
+}
+
+
+
+//Login Facebook
+fun getCredentialFacebook(token: String): AuthCredential {
+    return FacebookAuthProvider.getCredential(token)
 }

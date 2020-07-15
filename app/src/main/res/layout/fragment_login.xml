@@ -127,15 +127,24 @@
 
         </Button>
 
-        <Button
-            android:id="@+id/buttonFacebook"
+        <LinearLayout
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/ic_facebook"
+            android:background="@drawable/custon_bg_bfacebook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/buttonFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00032E50"
+                android:layout_marginStart="6dp"
+                android:layout_gravity="center_vertical|center_horizontal"/>
+        </LinearLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -167,7 +176,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-
             android:layout_marginBottom="16dp"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/custom_progressbar"

@@ -12,18 +12,17 @@ import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.data.getApiService
 import com.example.topnewsmvvmkotlin.data.getClientGoogle
+import com.example.topnewsmvvmkotlin.data.getCredentialFacebook
 import com.example.topnewsmvvmkotlin.data.getCredentialGoogle
 import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.util.*
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.TwitterAuthCredential
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,7 +33,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by viewModel()
-
+    
+    private val callbackManager = CallbackManager.Factory.create()
     enum class ActionFireBase {
         LOGIN,
         REGISTER,
@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        
         loginViewModel.loginFormState.observe(this, Observer {
             val loginState = it ?: return@Observer
             loginButton.isEnabled = loginState.isDataValid
@@ -70,6 +70,7 @@ class LoginFragment : Fragment() {
                             }
                         }
                         is Result.GenericError -> {
+                            Log.i("Carpul", "onAttach: ${it.result.error}")
                             firebaseErrors(it.result.error.toString(), requireContext())
                         }
                     }
@@ -88,6 +89,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as MainActivity).toolBar.visibility = View.INVISIBLE
+        
         editTextEmail.afterTextChanged {
             loginViewModel.loginDataChanged(
                 editTextEmail.text.toString(),
@@ -138,25 +140,35 @@ class LoginFragment : Fragment() {
 
         }
         buttonFacebook.setOnClickListener {
-            loginViewModel.loginFireBase("", "", ActionFireBase.FACEBOOK, null, null)
+            
+            Firebase.auth.signOut()
+            buttonFacebook.setReadPermissions("email")
+            buttonFacebook.fragment = this
+            buttonFacebook.registerCallback(callbackManager, object: FacebookCallback<LoginResult> {
+
+                override fun onSuccess(result: LoginResult) {
+                    val token = result.accessToken
+                    val credential = getCredentialFacebook(token.token)
+                    loginViewModel.loginFireBase("","",ActionFireBase.FACEBOOK, credential, activity)
+                }
+                override fun onCancel() {}
+
+                override fun onError(error: FacebookException?) {
+                    LoginViewModel.StateLiveData.RefreshUi(Result.GenericError(error?.message))
+                }
+            })
         }
+        
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             Constants.GOOGLE_LOGIN -> try { val credential = getCredentialGoogle(data)
                 loginViewModel.loginFireBase("", "",
                     ActionFireBase.GOOGLE, credential, null)
             } catch (e: ApiException) { firebaseErrors(e.localizedMessage, requireContext()) }
-
-
-            Constants.TWITTER_LOGIN -> {
-
-                Log.i("Carpul", "onActivityResult: twitter")
-            }
-            Constants.FACEBOOK_LOGIN -> Log.i("Carpul", "onActivityResult: facebook")
-
         }
     }
 }

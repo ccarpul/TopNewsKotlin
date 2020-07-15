@@ -41,7 +41,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         setQuery(arguments)
@@ -55,11 +54,10 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             }
 
         } else {
-            val username = auth.currentUser!!.email
+            val username = auth.currentUser?.email ?: auth.currentUser?.displayName
             toolBar.subtitle = username
         }
         homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
-
     }
 
     override fun onCreateView(
@@ -78,7 +76,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
         toolBar.setOnMenuItemClickListener {
 
             if(it.itemId == R.id.logout) {
-
                 auth.signOut()
                 findNavController().apply {
                     popBackStack()
