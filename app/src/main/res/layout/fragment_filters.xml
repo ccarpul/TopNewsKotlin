@@ -17,10 +17,11 @@
         android:hint="Keyword"
         android:inputType="textLongMessage"
         android:padding="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@drawable/custom_bg_bottomnavigation"
+        android:background="@drawable/custon_registerbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +34,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@+id/editKeyWord"
         tools:layout_editor_absoluteX="20dp"
-        android:background="@drawable/custom_bg_bottomnavigation"
+        android:background="@drawable/custom_bg_spinner"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -44,7 +45,7 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFilterSource"
         tools:layout_editor_absoluteX="16dp"
-        android:background="@drawable/custom_bg_bottomnavigation"
+        android:background="@drawable/custom_bg_spinner"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -54,7 +55,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFilterLanguage"
         tools:layout_editor_absoluteX="20dp"
-        android:background="@drawable/custom_bg_bottomnavigation"
+        android:background="@drawable/custom_bg_spinner"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -64,7 +65,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCountry"
         tools:layout_editor_absoluteX="20dp"
-        android:background="@drawable/custom_bg_bottomnavigation"
+        android:background="@drawable/custom_bg_spinner"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -75,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCategory"
         tools:layout_editor_absoluteX="20dp"
         tools:listitem="@layout/spinner_style"
-        android:background="@drawable/custom_bg_bottomnavigation"
+        android:background="@drawable/custom_bg_spinner"
         android:visibility="invisible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

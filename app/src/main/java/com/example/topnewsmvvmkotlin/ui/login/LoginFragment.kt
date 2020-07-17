@@ -89,7 +89,8 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as MainActivity).toolBar.visibility = View.INVISIBLE
-        
+        (activity as MainActivity).navBottomNavigation.visibility = View.INVISIBLE
+
         editTextEmail.afterTextChanged {
             loginViewModel.loginDataChanged(
                 editTextEmail.text.toString(),
@@ -102,8 +103,6 @@ class LoginFragment : Fragment() {
                     editTextPassword.text.toString(),
                     editTextPassword.text.toString()
                 )
-
-
             }
 
             setOnEditorActionListener { _, actionId, _ ->

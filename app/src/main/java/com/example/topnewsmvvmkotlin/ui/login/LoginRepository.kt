@@ -1,20 +1,8 @@
 package com.example.topnewsmvvmkotlin.ui.login
 
-import android.app.Activity
-import android.app.Fragment
-import android.app.FragmentManager
-import android.util.Log
 import androidx.fragment.app.*
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-
 
 class LoginRepository(private val instance: FirebaseAuth) {
 
@@ -36,9 +24,5 @@ class LoginRepository(private val instance: FirebaseAuth) {
             val oAuthProvider = OAuthProvider.newBuilder("twitter.com")
             instance.startActivityForSignInWithProvider(activity!!, oAuthProvider.build())
         }
-    }
-
-    fun setLoginByFacebook(): LoginManager {
-        return LoginManager.getInstance()
     }
 }

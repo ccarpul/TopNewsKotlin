@@ -110,7 +110,6 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
                     }
                 }
             } catch (e: Exception) {
-                Log.i("Carpul", "Exception: ${e.localizedMessage}")
                 _loginResult.value =
                     StateLiveData.RefreshUi(Result.GenericError(e.localizedMessage))
                 _loginResult.value = StateLiveData.PostLogin
@@ -130,7 +129,7 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
 
     // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
+        return if (username.contains('@') && username.isNotEmpty()) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
         } else {
             username.isNotBlank()

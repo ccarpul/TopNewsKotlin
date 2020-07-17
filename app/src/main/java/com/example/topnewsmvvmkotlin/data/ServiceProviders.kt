@@ -45,16 +45,13 @@ fun getClientGoogle(context: Context): GoogleSignInClient {
     return GoogleSignIn.getClient(context, googleConfig)
 }
 
-
 fun getCredentialGoogle(data: Intent?): AuthCredential {
     val task = GoogleSignIn.getSignedInAccountFromIntent(data)
     val account = task.getResult(ApiException::class.java)
     return GoogleAuthProvider.getCredential(account?.idToken, null)
 }
 
-
-
-//Login Facebook
+/** Login Facebook */
 fun getCredentialFacebook(token: String): AuthCredential {
     return FacebookAuthProvider.getCredential(token)
 }
