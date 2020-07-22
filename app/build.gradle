@@ -21,6 +21,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        //biblioteca de compatibilidad de Android X para los dibujos vectoriales que se remontan al nivel API 7.
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {

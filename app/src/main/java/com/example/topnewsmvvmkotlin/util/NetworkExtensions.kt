@@ -1,13 +1,6 @@
 package com.example.topnewsmvvmkotlin.util
 
-import android.util.Log
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Response
 import retrofit2.HttpException
@@ -48,7 +41,6 @@ sealed class ResultWrapper<out T> {
 }
 
 //Login with Firebase
-
 
 sealed class Result<out T> {
 

@@ -1,31 +1,19 @@
 package com.example.topnewsmvvmkotlin.ui.login
 
-import android.app.Activity
 import android.util.Log
 import android.util.Patterns
-import android.widget.Button
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.data.getCredentialFacebook
-import com.example.topnewsmvvmkotlin.ui.MainActivity
-import com.example.topnewsmvvmkotlin.util.*
-import com.facebook.CallbackManager
-import com.facebook.FacebookButtonBase
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
+import com.example.topnewsmvvmkotlin.util.AuthResult
+import com.example.topnewsmvvmkotlin.util.LoginFormState
+import com.example.topnewsmvvmkotlin.util.Result
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.OAuthProvider
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -33,7 +21,6 @@ import kotlin.coroutines.CoroutineContext
 class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), CoroutineScope {
 
     private lateinit var resultTwitter: Task<AuthResult>
-
 
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -57,8 +44,7 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
 
     fun loginFireBase(
         username: String, password: String, action: LoginFragment.ActionFireBase,
-        credential: AuthCredential?, activity: FragmentActivity?
-    ) {
+        credential: AuthCredential?, activity: FragmentActivity?) {
 
         launch {
             _loginResult.value = StateLiveData.PreLogin

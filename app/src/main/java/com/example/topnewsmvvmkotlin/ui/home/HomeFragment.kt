@@ -6,8 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,15 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.data.getClientGoogle
-import com.example.topnewsmvvmkotlin.data.googleConfig
 import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
 import com.example.topnewsmvvmkotlin.util.*
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
