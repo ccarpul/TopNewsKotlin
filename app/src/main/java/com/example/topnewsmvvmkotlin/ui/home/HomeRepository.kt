@@ -5,12 +5,8 @@ import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.util.Constants
 import com.example.topnewsmvvmkotlin.util.ResultWrapper
 import com.example.topnewsmvvmkotlin.util.safeApiCall
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Response
-import retrofit2.HttpException
-import java.io.IOException
 
 class HomeRepository(private val newsApiClient: NewsApiClient) {
 

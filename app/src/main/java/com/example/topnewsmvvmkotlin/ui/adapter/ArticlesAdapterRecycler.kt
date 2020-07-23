@@ -1,7 +1,5 @@
 package com.example.topnewsmvvmkotlin.ui.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import com.example.topnewsmvvmkotlin.data.model.Article
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycler_style.view.*
-import javax.security.auth.login.LoginException
 
 class ArticlesAdapterRecyclerView(
     private var list: MutableList<Article>,

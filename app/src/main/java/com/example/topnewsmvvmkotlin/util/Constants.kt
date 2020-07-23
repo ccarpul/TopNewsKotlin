@@ -1,7 +1,6 @@
 package com.example.topnewsmvvmkotlin.util
 
 import com.example.topnewsmvvmkotlin.BuildConfig
-import com.example.topnewsmvvmkotlin.R
 
 object Constants {
 

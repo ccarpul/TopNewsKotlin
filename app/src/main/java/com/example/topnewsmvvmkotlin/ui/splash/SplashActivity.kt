@@ -4,12 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class SplashActivity : AppCompatActivity() {

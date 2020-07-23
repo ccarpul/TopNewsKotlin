@@ -6,7 +6,6 @@ import com.example.topnewsmvvmkotlin.data.di.DependenciesModuleLogin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-
 //Clase para usar iniciar Koin para la inyección de dependencias
 
 class TopNewsApp: Application() {
