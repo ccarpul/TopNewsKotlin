@@ -8,3 +8,4 @@ Mobile App developed in Kotlin for Android.
 
 It shows recent news from a lot of countries, just choice your preferences and it will search for you.
 
+Demo: "https://github.com/ccarpul/Top-News-Kotlin/blob/master/"
