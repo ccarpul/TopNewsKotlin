@@ -6,6 +6,6 @@ width="200">
 
 Mobile App developed in Kotlin for Android.
 
-It shows recent news from a lot of countries, just choice your preferences and it will search for you.
+It shows recent news from a lot of countries, just choice your preferences and it "
 
-Demo: "https://github.com/ccarpul/Top-News-Kotlin/blob/master/"
+DEMO: https://youtu.be/zjKZP8K0shk
