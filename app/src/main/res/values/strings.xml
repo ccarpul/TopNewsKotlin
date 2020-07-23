@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">TopNewsMvvmKotlin</string>
-    <string name="top_news">Top News</string>
-    <string name="title_name">Top News</string>
+    <string name="app_name">Top News</string>
 
     <string-array name="countries">
         <item> \u0020 All Countries</item>
@@ -126,11 +124,42 @@
                         Retrofit library from Newsapi.org \n\n\n And It was made on MVVM
                         arquitecture \n\n\nVersion 1.2 \n\n\n
                         CarPuL Company ©"</string>
-    <string name="wrongChoice">Please Choice Another Option</string>
-    <string name="allArticlesdisplayed">Es Todo!</string>
+    <string name="wrongChoice">Please choice another option</string>
+    <string name="allArticlesdisplayed">Fin de lista</string>
     <string name="topNews">Top News</string>
     <string name="filters">Filters</string>
     <string name="aboutMenu">About</string>
-    <string name="noResults">No Results</string>
+    <string name="noResults">No results</string>
+    <string name="promptEmail">Email</string>
+    <string name="promptPassword">Password</string>
+    <string name="actionSignIn">Sign in</string>
+    <string name="actionRegister">Register</string>
+    <string name="invalidUsername">Not a valid username</string>
+    <string name="invalidPassword">Password must be >5 characters</string>
+    <string name="loginFailed">"Login failed"</string>
+
+    <!--FireBase-->
+
+    <string name="networkError">com.google.firebase.FirebaseNetworkException: A network error
+        (such as timeout, interrupted connection or unreachable host) has occurred.</string>
+
+    <string name="formatError">com.google.firebase.auth.FirebaseAuthInvalidCredentialsException:
+        The email address is badly formatted.</string>
+
+    <string name="emailInUse">com.google.firebase.auth.FirebaseAuthUserCollisionException:
+        The email address is already in use by another account.</string>
+
+    <string name="apiException">12501:\u0020</string>
+    <string name="cancelByUser">com.google.firebase.auth.FirebaseAuthWebException: The web operation was canceled by the user.</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <string name="facebook_app_id">879970785832899</string>
+    <string name="fb_login_protocol_scheme">fb879970785832899</string>
+
+
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
 
 </resources>

@@ -1,14 +1,19 @@
 package com.example.topnewsmvvmkotlin.ui.filters
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.topnewsmvvmkotlin.R
+import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.util.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigationdrawer_body.*
 
 class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -23,6 +28,9 @@ class FiltersFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnC
         view.builtSpinners()
         spinnerFilterSource.onItemSelectedListener = this
         buttonSetupFilters.setOnClickListener(this)
+
+        (activity as MainActivity).toolBar.title = "Filters"
+
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}

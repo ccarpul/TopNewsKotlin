@@ -2,13 +2,13 @@ package com.example.topnewsmvvmkotlin.util
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.isVisible
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.navigationdrawer_body.view.*
 val imageSources = intArrayOf(
     R.drawable.language_icon, R.drawable.ic_abc_news, R.drawable.ic_bbc_news, R.drawable.ic_bbc_news,
     R.drawable.ic_bloomberg, R.drawable.ic_cnn, R.drawable.ic_cnn, R.drawable.ic_espn,
-    R.drawable.ic_fox_news, R.drawable.ic_fox_news, R.drawable.ic_globo, R.drawable.ic_google)
+    R.drawable.ic_fox_news, R.drawable.ic_fox_news, R.drawable.ic_globo, R.drawable.ic_google2)
 val flagLanguages = intArrayOf(
     R.drawable.language_icon, R.drawable.ic_us, R.drawable.ic_ve,
     R.drawable.ic_fr, R.drawable.ic_it, R.drawable.ic_pt)
@@ -76,9 +76,10 @@ fun RecyclerView.isLastArticleDisplayed(linearLayoutManager: LinearLayoutManager
 
 fun makeToast(context: Context?, message: String) {
 
-    val toast = Toast.makeText(context, message, Toast.LENGTH_LONG)
+    val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
     val layout = toast.view as LinearLayout
     layout.setBackgroundResource(R.drawable.shape_toast)
+    layout.setPadding(20)
     val viewMessage = layout.getChildAt(0) as TextView
     viewMessage.setTextColor(Color.WHITE)
     viewMessage.textSize = 16f
@@ -86,4 +87,16 @@ fun makeToast(context: Context?, message: String) {
         setGravity(Gravity.BOTTOM, 0, 200)
         show()
     }
+}
+
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
 }

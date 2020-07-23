@@ -1,16 +1,23 @@
 package com.example.topnewsmvvmkotlin.ui.browser
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.topnewsmvvmkotlin.R
+import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.util.WebViewClient
 import com.example.topnewsmvvmkotlin.util.hide
+import com.example.topnewsmvvmkotlin.util.show
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_deeplink.*
 
 class DeepLinkFragment : Fragment() {
@@ -26,15 +33,27 @@ class DeepLinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as MainActivity).toolBar.hide()
+        (activity as MainActivity).navBottomNavigation.hide()
+
+
         val args = arguments?.let { DeepLinkFragmentArgs.fromBundle(it) }
 
         webView.apply {
+
             webViewClient = WebViewClient()
             loadUrl(args?.url)
             webViewClient = object : android.webkit.WebViewClient() {
                 override fun onPageFinished(view: WebView, url: String) {
-                    if(progressBarWebView != null) progressBarWebView.hide() }
+                    if(progressBarWebView != null) progressBarWebView.hide()
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).toolBar.show()
+        (activity as MainActivity).navBottomNavigation.show()
     }
 }

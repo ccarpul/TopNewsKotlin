@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "773632563142",
+    "firebase_url": "https://top-news-2020.firebaseio.com",
+    "project_id": "top-news-2020",
+    "storage_bucket": "top-news-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773632563142:android:7f62e8588a19568bd804c7",
+        "android_client_info": {
+          "package_name": "com.example.topnewsmvvmkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773632563142-m625b3k6utlfo7fdull73btrkn9vra2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM0IdV8QMKZHvdCh5988TBP9AFvCUB2m8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773632563142-m625b3k6utlfo7fdull73btrkn9vra2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

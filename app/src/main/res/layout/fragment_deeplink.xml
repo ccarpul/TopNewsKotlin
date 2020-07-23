@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="4dp"
+       />
 
     <FrameLayout
         android:id="@+id/frameProgressBar"
