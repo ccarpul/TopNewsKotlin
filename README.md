@@ -12,5 +12,5 @@ sources or country and category.
 
 DEMO: https://youtu.be/zjKZP8K0shk
 
-<img src="https://github.com/ccarpul/Top-News-Kotlin/blob/master/Presenter%20Top%20News.png"
+<img src="https://github.com/ccarpul/Top-News-Kotlin/blob/master/Presenter%20Top%20News%20Kotlin.png"
 width="1200">
