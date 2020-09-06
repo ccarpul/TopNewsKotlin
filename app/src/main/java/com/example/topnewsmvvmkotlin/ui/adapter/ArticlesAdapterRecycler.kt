@@ -15,8 +15,8 @@ class ArticlesAdapterRecyclerView(
     private val listener: OnClickSelectedItem
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val originalList: MutableList<Article> = arrayListOf()
 
+    private val originalList: MutableList<Article> = arrayListOf()
     private var pos =0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -53,7 +53,9 @@ class ArticlesAdapterRecyclerView(
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var url: String = ""
+
         fun bind(article: Article) {
+
             itemView.apply {
                 article_id.text = article.source.id
                 name.text = article.source.id

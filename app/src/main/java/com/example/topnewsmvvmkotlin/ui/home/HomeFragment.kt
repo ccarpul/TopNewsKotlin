@@ -1,9 +1,7 @@
-
 package com.example.topnewsmvvmkotlin.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
-
 
 class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem {
 
@@ -147,8 +144,8 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
-        Log.i("Carpul", "onClick: $query")
-        val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
+        val passUrl
+                = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
         findNavController().navigate(passUrl)
     }
 }

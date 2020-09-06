@@ -8,7 +8,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FacebookAuthCredential
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 import okhttp3.OkHttpClient
@@ -55,3 +54,4 @@ fun getCredentialGoogle(data: Intent?): AuthCredential {
 fun getCredentialFacebook(token: String): AuthCredential {
     return FacebookAuthProvider.getCredential(token)
 }
+

@@ -32,7 +32,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by viewModel()
-
     private val callbackManager = CallbackManager.Factory.create()
 
     enum class ActionFireBase {
@@ -92,6 +91,7 @@ class LoginFragment : Fragment() {
             toolBar.visibility = View.INVISIBLE
             navBottomNavigation.visibility = View.INVISIBLE
         }
+
         editTextEmail.afterTextChanged {
             loginViewModel.loginDataChanged(
                 editTextEmail.text.toString(),
@@ -117,6 +117,7 @@ class LoginFragment : Fragment() {
                 false
             }
         }
+
         loginButton.setOnClickListener {
             loginViewModel.loginFireBase(
                 editTextEmail.text.toString(),

@@ -21,8 +21,8 @@ import kotlin.coroutines.CoroutineContext
 class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), CoroutineScope {
 
     private lateinit var resultTwitter: Task<AuthResult>
-
     private var job: Job = Job()
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -34,7 +34,6 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
-
 
     private val _loginResult = MutableLiveData<StateLiveData>()
     val loginResult: LiveData<StateLiveData>
@@ -79,10 +78,9 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
 
                         resultTwitter =
                             loginRepository.setLoginByTwitter(activity).addOnCompleteListener {
-                                _loginResult.value = resultTwitter.AuthResult()
+                                _loginResult.value = it.AuthResult()
                                 _loginResult.value = StateLiveData.PostLogin
                             }.addOnFailureListener {
-                                Log.i("Carpul", it.localizedMessage)
                                 StateLiveData.RefreshUi(Result.GenericError(it.localizedMessage))
                             }
                     }
@@ -112,8 +110,6 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
             _loginForm.value = LoginFormState(isDataValid = true)
         }
     }
-
-    // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@') && username.isNotEmpty()) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
@@ -121,8 +117,6 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
             username.isNotBlank()
         }
     }
-
-    // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }
@@ -131,8 +125,7 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
         job = SupervisorJob()
     }
 
-    override fun onCleared() {  //Metodo de la clase View Model, al cerrarse el View Model
-        // se cierran todas las corrutinas pertenecientes ael presente Scope
+    override fun onCleared() {
         job.cancel()
         super.onCleared()
     }
