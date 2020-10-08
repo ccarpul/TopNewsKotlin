@@ -1,7 +1,5 @@
 package com.example.topnewsmvvmkotlin.ui.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +9,14 @@ import com.example.topnewsmvvmkotlin.data.model.Article
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycler_style.view.*
-import javax.security.auth.login.LoginException
 
 class ArticlesAdapterRecyclerView(
     private var list: MutableList<Article>,
     private val listener: OnClickSelectedItem
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val originalList: MutableList<Article> = arrayListOf()
 
+    private val originalList: MutableList<Article> = arrayListOf()
     private var pos =0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -56,7 +53,9 @@ class ArticlesAdapterRecyclerView(
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var url: String = ""
+
         fun bind(article: Article) {
+
             itemView.apply {
                 article_id.text = article.source.id
                 name.text = article.source.id

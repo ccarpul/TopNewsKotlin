@@ -1,8 +1,12 @@
 package com.example.topnewsmvvmkotlin.ui.login
 
-import androidx.fragment.app.*
+import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.*
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.OAuthProvider
 
 class LoginRepository(private val instance: FirebaseAuth) {
 
@@ -18,11 +22,15 @@ class LoginRepository(private val instance: FirebaseAuth) {
     fun setLoginByTwitter(activity: FragmentActivity?): Task<AuthResult> {
 
         val pendingAuthResult = instance.pendingAuthResult
+        Log.i("Carpul", "setLoginByTwitter: $pendingAuthResult")
         return if(pendingAuthResult != null){
+
             pendingAuthResult
+
         }else{
             val oAuthProvider = OAuthProvider.newBuilder("twitter.com")
             instance.startActivityForSignInWithProvider(activity!!, oAuthProvider.build())
+
         }
     }
 }

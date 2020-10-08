@@ -120,7 +120,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="60dp"
-            android:background="@drawable/googleg_standard_color_18"
+            android:background="@drawable/ic_google2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

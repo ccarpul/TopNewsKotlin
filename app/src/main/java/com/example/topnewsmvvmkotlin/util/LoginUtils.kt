@@ -2,18 +2,10 @@ package com.example.topnewsmvvmkotlin.util
 
 
 import android.content.Context
-import android.util.Log
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.data.getCredentialFacebook
 import com.example.topnewsmvvmkotlin.ui.login.LoginViewModel
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginResult
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
 
 fun firebaseErrors(error: String?, context: Context) {
 

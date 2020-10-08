@@ -21,10 +21,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-    /**Sobreesribiendo la variable coroutineContext para usar la
-    // interfaz CourutinaScope como ambito de las coroutinas del ViewModel
-    // Especifico el dispacher para que se ejecute en el hilo principal y
-    //le paso la referencia job para controlar el estado de la corrutina*/
+    
     sealed class StateLiveData{
         object InitialStateUi: StateLiveData()
         object PreCall:        StateLiveData()
@@ -34,7 +31,6 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
     }
 
     private val uiModelArticles = MutableLiveData<StateLiveData>()
-
     val modelArticles: LiveData<StateLiveData>
         get() {
             if (uiModelArticles.value == null) uiModelArticles.value = StateLiveData.InitialStateUi
@@ -58,13 +54,11 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
             }
             uiModelArticles.value = StateLiveData.PostCall
         }
-
     }
 
     init { job = SupervisorJob() }
 
-    override fun onCleared() {  //Metodo de la clase View Model, al cerrarse el View Model
-        // se cierran todas las corrutinas pertenecientes ael presente Scope
+    override fun onCleared() {
         job.cancel()
         super.onCleared()
     }

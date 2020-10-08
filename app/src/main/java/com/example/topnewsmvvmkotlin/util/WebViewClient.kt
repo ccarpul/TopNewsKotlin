@@ -7,6 +7,7 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 
 class WebViewClient: WebViewClient() {
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         view?.loadUrl(request?.url.toString())
