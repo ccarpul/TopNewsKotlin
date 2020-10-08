@@ -15,15 +15,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun getApiService(): NewsApiClient {
-    return Retrofit.Builder()
+fun getApiService(): NewsApiClient
+    = Retrofit.Builder()
         .baseUrl(Constants.BASEURL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(getOkHttpClient())
         .build().run {
             create(NewsApiClient::class.java)
         }
-}
+
 
 fun getOkHttpClient(): OkHttpClient {
 
