@@ -21,7 +21,7 @@ class AboutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).toolBar.title = "About"
+        (activity as MainActivity).toolBar.title = "About  "
     }
 
 
