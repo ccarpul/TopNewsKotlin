@@ -161,5 +161,6 @@
 
     <!-- Twitter consumer key and secret -->
     <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
+    <string name="email">Email</string>
 
 </resources>

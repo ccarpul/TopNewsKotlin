@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.topnewsmvvmkotlin.data.getCredentialGoogle
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
 import com.example.topnewsmvvmkotlin.util.Constants
 import com.example.topnewsmvvmkotlin.util.ResultWrapper
@@ -54,6 +55,10 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel(), C
             }
             uiModelArticles.value = StateLiveData.PostCall
         }
+    }
+
+    fun setArticle(){
+        Log.i("Carpul", "setArticle: ")
     }
 
     init { job = SupervisorJob() }

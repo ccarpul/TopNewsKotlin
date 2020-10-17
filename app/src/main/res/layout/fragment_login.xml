@@ -10,49 +10,44 @@
     tools:context=".ui.login.LoginFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatImageView"
+        android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
         android:gravity="center_horizontal"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="@+id/appCompatImageView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/logoApp"
+        app:layout_constraintStart_toStartOf="@+id/logoApp"
+        app:layout_constraintTop_toBottomOf="@+id/logoApp" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView2"
+        android:id="@+id/logoApp"
         android:layout_width="112dp"
-        android:layout_height="103dp"
-        android:layout_marginTop="8dp"
-        app:srcCompat="@mipmap/ic_launcher_foreground"
+        android:layout_height="102dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_foreground" />
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/custon_bg_edittext"
         android:ems="10"
-        android:hint=" Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/appTitle" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/custon_bg_edittext"
@@ -68,7 +63,7 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/custon_bg_edittext"
@@ -81,7 +76,7 @@
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/custon_registerbutton"
@@ -94,7 +89,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/othersRegisters"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/custon_registerbutton"
@@ -151,12 +146,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progressbarLayout"
-        android:layout_width="92dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/othersRegisters">
 

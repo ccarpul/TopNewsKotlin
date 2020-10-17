@@ -16,6 +16,7 @@ class ArticlesAdapterRecyclerView(
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+
     private val originalList: MutableList<Article> = arrayListOf()
     private var pos =0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -72,6 +73,11 @@ class ArticlesAdapterRecyclerView(
                         .centerCrop()
                         .into(urlToImage)
                 }else urlToImage.setImageDrawable(resources.getDrawable(R.drawable.diarynews_image))
+
+                save.setOnClickListener {
+                    save.setImageResource(R.drawable.ic_save)
+                    listener.onClick("save")
+                }
             }
             itemView.setOnClickListener(this)
 
