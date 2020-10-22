@@ -144,8 +144,11 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
     }
 
     override fun onClick(query: String) {
-        val passUrl
-                = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
-        findNavController().navigate(passUrl)
+
+        if("save" in query) homeViewModel.setArticle()
+        else {
+            val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
+            findNavController().navigate(passUrl)
+        }
     }
 }

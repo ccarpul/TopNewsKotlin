@@ -14,11 +14,12 @@ class ArticlesAdapterRecyclerView(
     private var list: MutableList<Article>,
     private val listener: OnClickSelectedItem
 
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<ArticlesAdapterRecyclerView.ArticlesAdapterViewHolder>() {
+
 
     private val originalList: MutableList<Article> = arrayListOf()
     private var pos =0
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesAdapterViewHolder{
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_style, parent, false)
         return ArticlesAdapterViewHolder(view)
@@ -40,11 +41,9 @@ class ArticlesAdapterRecyclerView(
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ArticlesAdapterViewHolder) {
-            pos = position
-            holder.bind(list[position])
-        }
+    override fun onBindViewHolder(holder: ArticlesAdapterViewHolder, position: Int) {
+        pos = position
+        holder.bind(list[position])
     }
 
     interface OnClickSelectedItem { fun onClick(query: String) }
@@ -72,6 +71,11 @@ class ArticlesAdapterRecyclerView(
                         .centerCrop()
                         .into(urlToImage)
                 }else urlToImage.setImageDrawable(resources.getDrawable(R.drawable.diarynews_image))
+
+                save.setOnClickListener {
+                    save.setImageResource(R.drawable.ic_save)
+                    listener.onClick("save")
+                }
             }
             itemView.setOnClickListener(this)
 

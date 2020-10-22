@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="10dp"
         android:autofillHints="no"
-        android:hint="Keyword"
+        android:hint="@string/keyword"
         android:inputType="textLongMessage"
         android:padding="10dp"
         android:textColor="@color/colorPrimary"
@@ -32,9 +32,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_fields_navigation_drawer"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/editKeyWord"
-        tools:layout_editor_absoluteX="20dp"
         android:background="@drawable/custom_bg_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editKeyWord"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -53,9 +54,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_fields_navigation_drawer"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterLanguage"
-        tools:layout_editor_absoluteX="20dp"
         android:background="@drawable/custom_bg_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterLanguage"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -63,9 +65,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_fields_navigation_drawer"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCountry"
-        tools:layout_editor_absoluteX="20dp"
         android:background="@drawable/custom_bg_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCountry"
         tools:listitem="@layout/spinner_style" />
 
     <androidx.appcompat.widget.AppCompatSpinner
@@ -73,22 +76,20 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_fields_navigation_drawer"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCategory"
-        tools:layout_editor_absoluteX="20dp"
-        tools:listitem="@layout/spinner_style"
         android:background="@drawable/custom_bg_spinner"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCategory"
+        tools:listitem="@layout/spinner_style" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonSetupFilters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_layout_navigation_drawer"
-        android:layout_marginTop="40dp"
-        android:contentDescription="TODO"
-        app:srcCompat="@drawable/ic_search_24"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterSortby" />
+        app:srcCompat="@drawable/ic_search_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

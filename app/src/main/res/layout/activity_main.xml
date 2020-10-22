@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +8,10 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="6dp"
+        android:background="#E2032E50"
+        android:padding="4dp"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -20,30 +20,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#E2032E50"
-        tools:ignore="NewApi"/>
+        tools:ignore="NewApi" />
 
     <fragment
         android:id="@+id/navHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navBottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
         app:navGraph="@navigation/navgraph"
-        tools:layout="@layout/fragment_deeplink" />
+        tools:layout="@layout/fragment_home" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navBottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:background="@drawable/custom_bg_bottomnavigation"
         android:visibility="invisible"
         app:itemIconTint="@android:color/white"
