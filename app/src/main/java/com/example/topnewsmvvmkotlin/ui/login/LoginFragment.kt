@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.topnewsmvvmkotlin.R
@@ -16,7 +17,7 @@ import com.example.topnewsmvvmkotlin.data.getClientGoogle
 import com.example.topnewsmvvmkotlin.data.getCredentialFacebook
 import com.example.topnewsmvvmkotlin.data.getCredentialGoogle
 import com.example.topnewsmvvmkotlin.ui.MainActivity
-import com.example.topnewsmvvmkotlin.util.*
+import com.example.topnewsmvvmkotlin.utils.*
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -27,6 +28,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 
 class LoginFragment : Fragment() {
@@ -74,7 +76,7 @@ class LoginFragment : Fragment() {
                         }
                     }
                 }
-                is LoginViewModel.StateLiveData.PostLogin -> progressbarLayout.hide()
+                is LoginViewModel.StateLiveData.PostLogin -> progressbarLayout.visibility = View.INVISIBLE
             }
         })
     }
@@ -107,11 +109,13 @@ class LoginFragment : Fragment() {
             }
 
             setOnEditorActionListener { _, actionId, _ ->
+                Log.i("Carpul", "setOnEditorActionListener ")
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.loginFireBase(
-                            editTextEmail.text.toString(),
-                            editTextPassword.text.toString(), ActionFireBase.LOGIN, null, null
+                           username =  editTextEmail.text.toString(),
+                            password = editTextPassword.text.toString(),
+                            action = ActionFireBase.LOGIN
                         )
                 }
                 false
@@ -120,14 +124,14 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loginViewModel.loginFireBase(
-                editTextEmail.text.toString(),
-                editTextPassword.text.toString(), ActionFireBase.LOGIN, null, null
+                username = editTextEmail.text.toString(),
+                password = editTextPassword.text.toString(), action = ActionFireBase.LOGIN
             )
         }
         signUpButton.setOnClickListener {
             loginViewModel.loginFireBase(
-                editTextEmail.text.toString(),
-                editTextPassword.text.toString(), ActionFireBase.REGISTER, null, null
+                username = editTextEmail.text.toString(),
+                password = editTextPassword.text.toString(), action = ActionFireBase.REGISTER
             )
         }
         buttonGoogle.setOnClickListener {
@@ -138,7 +142,7 @@ class LoginFragment : Fragment() {
         }
         buttonTwitter.setOnClickListener {
             Firebase.auth.signOut()
-            loginViewModel.loginFireBase("", "", ActionFireBase.TWITTER, null, activity)
+            loginViewModel.loginFireBase( action = ActionFireBase.TWITTER,  activity = activity)
 
         }
         buttonFacebook.setOnClickListener {

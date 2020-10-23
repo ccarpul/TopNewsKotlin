@@ -1,15 +1,14 @@
 package com.example.topnewsmvvmkotlin.ui.login
 
+import android.app.Application
 import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.topnewsmvvmkotlin.R
-import com.example.topnewsmvvmkotlin.util.AuthResult
-import com.example.topnewsmvvmkotlin.util.LoginFormState
-import com.example.topnewsmvvmkotlin.util.Result
+import com.example.topnewsmvvmkotlin.utils.AuthResult
+import com.example.topnewsmvvmkotlin.utils.LoginFormState
+import com.example.topnewsmvvmkotlin.utils.Result
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
@@ -42,9 +41,11 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
         }
 
     fun loginFireBase(
-        username: String, password: String, action: LoginFragment.ActionFireBase,
-        credential: AuthCredential?, activity: FragmentActivity?) {
+        username: String = "", password: String = "", action: LoginFragment.ActionFireBase,
+        credential: AuthCredential? = null, activity: FragmentActivity? = null
+    ) {
 
+        Log.i("Carpul", "loginFireBase: ")
         launch {
             _loginResult.value = StateLiveData.PreLogin
 
@@ -77,7 +78,7 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
                     LoginFragment.ActionFireBase.TWITTER -> {
 
                         resultTwitter =
-                            loginRepository.setLoginByTwitter(activity).addOnCompleteListener {
+                            loginRepository.setLoginByTwitter(activity!!).addOnCompleteListener {
                                 _loginResult.value = it.AuthResult()
                                 _loginResult.value = StateLiveData.PostLogin
                             }.addOnFailureListener {
@@ -110,6 +111,7 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
             _loginForm.value = LoginFormState(isDataValid = true)
         }
     }
+
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@') && username.isNotEmpty()) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
@@ -117,6 +119,7 @@ class LoginViewModel(val loginRepository: LoginRepository) : ViewModel(), Corout
             username.isNotBlank()
         }
     }
+
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }
