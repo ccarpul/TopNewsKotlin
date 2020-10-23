@@ -1,93 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <EditText
-        android:id="@+id/editKeyWord"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        android:autofillHints="no"
-        android:hint="@string/keyword"
-        android:inputType="textLongMessage"
-        android:padding="10dp"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:background="@drawable/custon_registerbutton"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="o" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerFilterSource"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_fields_navigation_drawer"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_bg_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editKeyWord"
-        tools:listitem="@layout/spinner_style" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerFilterLanguage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_fields_navigation_drawer"
-        android:layout_marginTop="12dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterSource"
-        tools:layout_editor_absoluteX="16dp"
-        android:background="@drawable/custom_bg_spinner"
-        tools:listitem="@layout/spinner_style" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerFilterCountry"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_fields_navigation_drawer"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_bg_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterLanguage"
-        tools:listitem="@layout/spinner_style" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editKeyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/keyword"
+                android:textColorHint="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerFilterCategory"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_fields_navigation_drawer"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_bg_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCountry"
-        tools:listitem="@layout/spinner_style" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editKeyWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinnerFilterSortby"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_fields_navigation_drawer"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_bg_spinner"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCategory"
-        tools:listitem="@layout/spinner_style" />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerFilterSource"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_fields_navigation_drawer"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editKeyLayout"
+                tools:listitem="@layout/spinner_style" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerFilterLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_fields_navigation_drawer"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerFilterSource"
+                tools:layout_editor_absoluteX="16dp"
+                tools:listitem="@layout/spinner_style" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerFilterCountry"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_fields_navigation_drawer"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerFilterLanguage"
+                tools:listitem="@layout/spinner_style" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerFilterCategory"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_fields_navigation_drawer"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCountry"
+                tools:listitem="@layout/spinner_style" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerFilterSortby"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_fields_navigation_drawer"
+                android:layout_marginTop="12dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCategory"
+                tools:listitem="@layout/spinner_style" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_margin="20dp"
         android:id="@+id/buttonSetupFilters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_search_24" />

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!-- Base application theme. -->
+    <style name="Theme.TopNews" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/blue_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar color. -->
+        <item name="textInputStyle">@style/Theme.TopNews.TextInput</item>
+        <item name="android:windowBackground">@color/green</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">?attr/colorPrimaryVariant </item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="materialCardViewStyle">@style/Theme.TopNews.CardView</item>
+        <item name="bottomNavigationStyle">@style/Theme.TopNews.BottomNavigation</item>
+
+        <item name="toolbarStyle" tools:targetApi="l">@style/Theme.TopNews.Toolbar</item>
+
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+
+</resources>

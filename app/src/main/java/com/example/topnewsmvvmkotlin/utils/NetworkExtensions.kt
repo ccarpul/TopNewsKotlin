@@ -1,4 +1,4 @@
-package com.example.topnewsmvvmkotlin.util
+package com.example.topnewsmvvmkotlin.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

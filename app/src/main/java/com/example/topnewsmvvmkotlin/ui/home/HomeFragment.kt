@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.MainActivity
 import com.example.topnewsmvvmkotlin.ui.adapter.ArticlesAdapterRecyclerView
-import com.example.topnewsmvvmkotlin.util.*
+import com.example.topnewsmvvmkotlin.utils.*
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth

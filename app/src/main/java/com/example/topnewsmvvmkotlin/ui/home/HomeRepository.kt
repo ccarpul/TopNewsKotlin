@@ -2,9 +2,9 @@ package com.example.topnewsmvvmkotlin.ui.home
 
 import com.example.topnewsmvvmkotlin.data.NewsApiClient
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
-import com.example.topnewsmvvmkotlin.util.Constants
-import com.example.topnewsmvvmkotlin.util.ResultWrapper
-import com.example.topnewsmvvmkotlin.util.safeApiCall
+import com.example.topnewsmvvmkotlin.utils.Constants
+import com.example.topnewsmvvmkotlin.utils.ResultWrapper
+import com.example.topnewsmvvmkotlin.utils.safeApiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

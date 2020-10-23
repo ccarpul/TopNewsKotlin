@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+
+    <!--
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
+        Customize your theme here.
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#E2032E50</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,12 +12,34 @@
         <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
+-->
 
-    <style name="AppTheme.SplashLoad" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:windowBackground">#E2032E50</item>
+    <style name="AppTheme.SplashLoad" parent="Theme.TopNews">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">true</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.TopNews.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="Theme.TopNews.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/green_light</item>
+    </style>
+
+    <style name="Theme.TopNews.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.DayNight</item>
+    </style>
+    
+    <style name="Theme.TopNews.TextInput" 
+        parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">?attr/textAppearanceSearchResultTitle</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="counterEnabled">true</item>
+        <item name="counterMaxLength">20</item>
     </style>
 
 </resources>

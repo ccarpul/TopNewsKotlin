@@ -15,5 +15,4 @@
     android:gravity="center_vertical"
     tools:text="item Spinner"
     android:paddingStart="@dimen/width_image_spinner"
-    android:background="@color/colorPrimary"
     />

@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.topnewsmvvmkotlin.data.getCredentialGoogle
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
-import com.example.topnewsmvvmkotlin.util.Constants
-import com.example.topnewsmvvmkotlin.util.ResultWrapper
+import com.example.topnewsmvvmkotlin.utils.Constants
+import com.example.topnewsmvvmkotlin.utils.ResultWrapper
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

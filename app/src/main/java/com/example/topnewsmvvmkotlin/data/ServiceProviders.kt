@@ -2,7 +2,7 @@ package com.example.topnewsmvvmkotlin.data
 
 import android.content.Context
 import android.content.Intent
-import com.example.topnewsmvvmkotlin.util.Constants
+import com.example.topnewsmvvmkotlin.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.MainActivity
-import com.example.topnewsmvvmkotlin.util.*
+import com.example.topnewsmvvmkotlin.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigationdrawer_body.*
 

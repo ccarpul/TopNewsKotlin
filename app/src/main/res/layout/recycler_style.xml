@@ -1,153 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="1dp"
-    android:layout_marginBottom="1dp"
-    app:cardElevation="0dp">
+    android:layout_margin="1dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/urlToImage"
+        android:layout_width="172dp"
+        android:layout_height="150dp"
+        android:padding="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/article_id"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/urlToImage"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="136dp"
+        android:maxLength="14"
+        android:maxLines="1"
+        android:paddingStart="6dp"
+        android:paddingTop="1dp"
+        android:textAlignment="textStart"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/urlToImage"
+        app:layout_constraintStart_toStartOf="@+id/urlToImage"
+        app:layout_constraintTop_toTopOf="@+id/urlToImage"
+        app:layout_constraintVertical_bias="0.0"
+        tool:text="ID" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/urlToImage"
+        android:layout_marginTop="136dp"
+        android:maxLength="16"
+        android:maxLines="1"
+        android:paddingStart="2dp"
+        android:paddingTop="1dp"
+        android:textAlignment="textStart"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/article_id"
+        app:layout_constraintTop_toTopOf="@+id/urlToImage"
+        tool:text="Name" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:maxLines="6"
+        android:padding="4dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/save"
+        app:layout_constraintStart_toEndOf="@+id/urlToImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:text="@tools:sample/lorem/random" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_unsave" />
+
+    <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundCardView"
-        android:paddingStart="4dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="4dp"
-        android:paddingBottom="4dp">
+        android:padding="2dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/urlToImage"
+        tool:text="Description" />
 
-        <ImageView
-            android:id="@+id/urlToImage"
-            android:layout_width="172dp"
-            android:layout_height="150dp"
-            android:background="@drawable/background_image_recyclerview"
-            android:contentDescription="TODO"
-            android:padding="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tool:srcCompat="@tools:sample/backgrounds/scenic" />
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        tool:layout_editor_absoluteX="22dp"
+        tool:text="Content" />
 
-        <TextView
-            android:id="@+id/article_id"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/urlToImage"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="136dp"
-            android:paddingStart="6dp"
-            android:paddingTop="1dp"
-            android:maxLength="14"
-            android:maxLines="1"
-            android:textAlignment="textStart"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/urlToImage"
-            app:layout_constraintStart_toStartOf="@+id/urlToImage"
-            app:layout_constraintTop_toTopOf="@+id/urlToImage"
-            app:layout_constraintVertical_bias="0.0"
-            tool:text="ID" />
+    <TextView
+        android:id="@+id/publishedAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="24"
+        android:maxLines="1"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@+id/content"
+        tool:ignore="SmallSp"
+        tool:layout_editor_absoluteX="22dp"
+        tool:text="Published At" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/urlToImage"
-            android:layout_marginTop="136dp"
-            android:paddingStart="2dp"
-            android:paddingTop="1dp"
-            android:maxLength="16"
-            android:maxLines="1"
-            android:visibility="invisible"
-            android:textAlignment="textStart"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/article_id"
-            app:layout_constraintTop_toTopOf="@+id/urlToImage"
-            tool:text="Name" />
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@+id/publishedAt"
+        tool:ignore="SmallSp"
+        tool:layout_editor_absoluteX="22dp"
+        tool:text="Author" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:maxLines="6"
-            android:padding="4dp"
-            android:textColor="@color/design_default_color_primary_dark"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/save"
-            app:layout_constraintStart_toEndOf="@+id/urlToImage"
-            app:layout_constraintTop_toTopOf="parent"
-            tool:text="@tools:sample/lorem/random" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_unsave" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.48"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/urlToImage"
-            tool:text="Description" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:textColor="@color/cardview_shadow_start_color"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/description"
-            tool:layout_editor_absoluteX="22dp"
-            tool:text="Content"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/publishedAt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="24"
-            android:maxLines="1"
-            android:textSize="10sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/content"
-            tool:layout_editor_absoluteX="22dp"
-            tool:text="Published At"
-            tool:ignore="SmallSp" />
-
-        <TextView
-            android:id="@+id/author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:textSize="10sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/publishedAt"
-            tool:layout_editor_absoluteX="22dp"
-            tool:text="Author"
-            tool:ignore="SmallSp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

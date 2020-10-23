@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#03504b</color>
-    <color name="colorPrimaryDark">#E3032E50</color>
-    <color name="colorAccent">#81C784</color>
+    <color name="colorPrimary">@color/green</color>
+    <color name="colorPrimaryDark">@color/green_dark</color>
+    <color name="colorAccent">@color/blue</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="transparent">#11000000</color>
 
-    <color name="backgroundCardView">#E4FFFFFF</color>
-    <color name="backgroundToast">#E2032E50</color>
+    <color name="backgroundCardView">@color/green_light</color>
+    <color name="backgroundToast">@color/green_dark</color>
+
+    <color name="green">#1B5E20</color>
+    <color name="green_dark">#003300</color>
+    <color name="green_light">#A5D6A7</color>
+    <color name="blue">#0288D1</color>
+    <color name="blue_dark">#005B9F</color>
+    <color name="blue_light">#81D4FA</color>
 
 </resources>

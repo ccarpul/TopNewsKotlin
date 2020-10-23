@@ -9,9 +9,9 @@ import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.ui.MainActivity
-import com.example.topnewsmvvmkotlin.util.WebViewClient
-import com.example.topnewsmvvmkotlin.util.hide
-import com.example.topnewsmvvmkotlin.util.show
+import com.example.topnewsmvvmkotlin.utils.WebViewClient
+import com.example.topnewsmvvmkotlin.utils.hide
+import com.example.topnewsmvvmkotlin.utils.show
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_deeplink.*
 

@@ -24,6 +24,22 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="o" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editKeyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/keyword"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editKeyWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textLongMessage" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinnerFilterSource"
         android:layout_width="300dp"
@@ -68,11 +84,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_layout_navigation_drawer"
-        android:layout_marginTop="44dp"
         android:background="@color/colorAccent"
         android:contentDescription="TODO"
-        app:srcCompat="@drawable/ic_search_24"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFilterCategory" />
+        app:srcCompat="@drawable/ic_search_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

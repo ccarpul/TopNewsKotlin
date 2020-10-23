@@ -73,7 +73,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_layout_navigation_drawer"
         android:layout_marginTop="40dp"
-        android:background="@color/colorAccent"
         android:contentDescription="TODO"
         app:srcCompat="@drawable/ic_search_24"
         app:layout_constraintEnd_toEndOf="parent"

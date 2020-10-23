@@ -1,7 +1,7 @@
 package com.example.topnewsmvvmkotlin.data
 
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
-import com.example.topnewsmvvmkotlin.util.Constants
+import com.example.topnewsmvvmkotlin.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,4 +1,4 @@
-package com.example.topnewsmvvmkotlin.util
+package com.example.topnewsmvvmkotlin.utils
 
 
 import android.content.Context
