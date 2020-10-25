@@ -38,13 +38,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
-    <!-- android:background="@drawable/custom_bg_bottomnavigation"
-    android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:background="@color/colorPrimaryDark"
-        android:background="@color/colorPrimaryDark"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

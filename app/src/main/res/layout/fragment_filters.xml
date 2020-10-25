@@ -36,7 +36,7 @@
                     android:id="@+id/editKeyWord"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textLongMessage" />
+                    android:inputType="textAutoComplete" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner

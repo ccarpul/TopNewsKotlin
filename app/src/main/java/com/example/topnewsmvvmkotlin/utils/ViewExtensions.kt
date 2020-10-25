@@ -79,9 +79,9 @@ fun makeToast(context: Context?, message: String) {
     val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
     val layout = toast.view as LinearLayout
     layout.setBackgroundResource(R.drawable.shape_toast)
-    layout.setPadding(20)
+    layout.setPadding(10)
     val viewMessage = layout.getChildAt(0) as TextView
-    viewMessage.setTextColor(Color.WHITE)
+    viewMessage.setTextColor(Color.BLACK)
     viewMessage.textSize = 16f
     toast.apply {
         setGravity(Gravity.BOTTOM, 0, 200)

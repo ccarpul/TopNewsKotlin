@@ -24,8 +24,9 @@
         <item name="cardBackgroundColor">@color/white</item>
     </style>
 
-    <style name="Theme.TopNews.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="android:background">@color/green_light</item>
+    <style name="Theme.TopNews.BottomNavigation"
+        parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:background">@color/green_dark</item>
     </style>
 
     <style name="Theme.TopNews.Toolbar" parent="Widget.MaterialComponents.Toolbar">
@@ -37,7 +38,9 @@
     <style name="Theme.TopNews.TextInput" 
         parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">?attr/textAppearanceSearchResultTitle</item>
+        <item name="hintTextColor">?attr/colorAccent</item>
         <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeColor">?attr/colorAccent</item>
         <item name="counterEnabled">true</item>
         <item name="counterMaxLength">20</item>
     </style>
