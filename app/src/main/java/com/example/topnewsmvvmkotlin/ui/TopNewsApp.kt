@@ -17,7 +17,7 @@ class TopNewsApp: Application() {
         super.onCreate()
         mApp = this
         startKoin {
-            androidContext(this@TopNewsApp)
+            androidContext(mApp)
             modules(listOf(DependenciesModuleHome, DependenciesModuleLogin))
         }
     }

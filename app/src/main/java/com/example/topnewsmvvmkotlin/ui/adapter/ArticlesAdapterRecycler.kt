@@ -31,13 +31,10 @@ class ArticlesAdapterRecyclerView(
         notifyDataSetChanged()
     }
 
-    fun getPosition(): Int{
-        return pos
-    }
+    fun getPosition(): Int = pos
 
-    fun getOriginalList(): MutableList<Article> {
-        return originalList
-    }
+    fun getOriginalList(): MutableList<Article> = originalList
+
 
     override fun getItemCount(): Int = list.size
 
@@ -51,7 +48,7 @@ class ArticlesAdapterRecyclerView(
 
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        var url: String = ""
+        private lateinit var url: String
 
         fun bind(article: Article) {
 

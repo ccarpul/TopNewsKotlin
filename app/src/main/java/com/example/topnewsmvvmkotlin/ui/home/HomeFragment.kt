@@ -34,25 +34,6 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        setQuery(arguments)
-        toolBar = (activity as MainActivity).toolBar
-        toolBar.show()
-
-        if (auth.currentUser == null) {
-            findNavController().apply {
-                popBackStack()
-                navigate(R.id.loginFragment)
-            }
-
-        } else {
-            val username = auth.currentUser?.email ?: auth.currentUser?.displayName
-            toolBar.subtitle = username
-        }
-        homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -77,6 +58,25 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             }
             false
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        setQuery(arguments)
+        toolBar = (activity as MainActivity).toolBar
+        toolBar.show()
+
+        if (auth.currentUser == null) {
+            findNavController().apply {
+                popBackStack()
+                navigate(R.id.loginFragment)
+            }
+
+        } else {
+            val username = auth.currentUser?.email ?: auth.currentUser?.displayName
+            toolBar.subtitle = username
+        }
+        homeViewModel.modelArticles.observe(this, Observer(::upDateUi))
     }
 
     private fun upDateUi(state: HomeViewModel.StateLiveData) {
