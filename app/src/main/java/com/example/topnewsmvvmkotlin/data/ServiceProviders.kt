@@ -15,8 +15,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun getApiService(): NewsApiClient
-    = Retrofit.Builder()
+object Service {
+    fun getApiService(): NewsApiClient = Retrofit.Builder()
         .baseUrl(Constants.BASEURL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(getOkHttpClient())
@@ -25,13 +25,13 @@ fun getApiService(): NewsApiClient
         }
 
 
-fun getOkHttpClient(): OkHttpClient {
+    fun getOkHttpClient(): OkHttpClient {
 
-    val logging = HttpLoggingInterceptor()
-    logging.level = HttpLoggingInterceptor.Level.BASIC
-    return OkHttpClient.Builder().addInterceptor(logging).build()
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BASIC
+        return OkHttpClient.Builder().addInterceptor(logging).build()
+    }
 }
-
 /** Login Google*/
 
 val googleConfig =

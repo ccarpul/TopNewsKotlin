@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/topNews_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:listitem="@layout/recycler_style" />
-
     <FrameLayout
         android:id="@+id/frameProgressBar"
         android:layout_width="match_parent"
@@ -33,8 +23,20 @@
             android:layout_marginTop="-8dp"
             android:layout_marginBottom="-8dp"
             android:indeterminate="true"
-            android:background="@color/black"/>
+            android:background="@color/white"/>
 
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/topNews_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:listitem="@layout/recycler_style" />
+
+
 
 </FrameLayout>

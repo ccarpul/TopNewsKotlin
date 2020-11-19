@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.topnewsmvvmkotlin.R
 import com.example.topnewsmvvmkotlin.data.model.Article
 import com.example.topnewsmvvmkotlin.data.model.ModelResponse
+import com.google.android.material.shape.CornerFamily
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_splash.view.*
 import kotlinx.android.synthetic.main.recycler_style.view.*
+
 
 class ArticlesAdapterRecyclerView(
     private var list: MutableList<Article>,
@@ -16,24 +19,28 @@ class ArticlesAdapterRecyclerView(
 
 ) : RecyclerView.Adapter<ArticlesAdapterRecyclerView.ArticlesAdapterViewHolder>() {
 
+    private var pos = 0
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesAdapterViewHolder {
 
-    private val originalList: MutableList<Article> = arrayListOf()
-    private var pos =0
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesAdapterViewHolder{
+
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_style, parent, false)
+
+        view.urlToImage.shapeAppearanceModel = view.urlToImage.shapeAppearanceModel
+            .toBuilder()
+            .setTopLeftCorner(CornerFamily.ROUNDED, 50F)
+            .setBottomRightCorner(CornerFamily.ROUNDED, 50F)
+            .build()
+
         return ArticlesAdapterViewHolder(view)
     }
 
     fun addData(data: ModelResponse) {
-        list.addAll(data.articles)
-        originalList.addAll(list)
+        data.articles?.let { list.addAll(it) }
         notifyDataSetChanged()
     }
 
     fun getPosition(): Int = pos
-
-    fun getOriginalList(): MutableList<Article> = originalList
 
 
     override fun getItemCount(): Int = list.size
@@ -41,33 +48,40 @@ class ArticlesAdapterRecyclerView(
     override fun onBindViewHolder(holder: ArticlesAdapterViewHolder, position: Int) {
         pos = position
         holder.bind(list[position])
+
     }
 
-    interface OnClickSelectedItem { fun onClick(query: String) }
+    interface OnClickSelectedItem {
+        fun onClick(query: String?)
+    }
 
 
     inner class ArticlesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        private lateinit var url: String
+        private var url: String? = null
+
 
         fun bind(article: Article) {
 
             itemView.apply {
-                article_id.text = article.source.id
-                name.text = article.source.id
+                articleId.text = article.source?.articleId
+                name.text = article.source?.name
                 title.text = article.title
                 description.text = article.description
                 content.text = article.content
                 author.text = article.author
                 publishedAt.text = article.publishedAt
-                url = article.url;
+                url = article.url
+
                 if (!article.urlToImage.isNullOrBlank()) {
-                    Picasso.with(itemView.context).load(article.urlToImage)
+                    Picasso.with(itemView.context)
+                        .load(article.urlToImage)
                         .placeholder(R.drawable.diarynews_image)
+                        //.centerCrop()
                         .resize(360, 280)
-                        .centerCrop()
+                        .centerInside()
                         .into(urlToImage)
-                }else urlToImage.setImageDrawable(resources.getDrawable(R.drawable.diarynews_image))
+                } else itemView.urlToImage.setImageResource(R.drawable.diarynews_image)
 
                 save.setOnClickListener {
                     save.setImageResource(R.drawable.ic_save)
@@ -75,8 +89,10 @@ class ArticlesAdapterRecyclerView(
                 }
             }
             itemView.setOnClickListener(this)
-
         }
-        override fun onClick(p0: View?) {listener.onClick(url)}
+
+        override fun onClick(p0: View?) {
+            listener.onClick(url)
+        }
     }
 }

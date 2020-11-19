@@ -49,7 +49,7 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
 
         toolBar.setOnMenuItemClickListener {
 
-            if(it.itemId == R.id.logout) {
+            if (it.itemId == R.id.logout) {
                 auth.signOut()
                 findNavController().apply {
                     popBackStack()
@@ -143,12 +143,15 @@ class HomeFragment : Fragment(), ArticlesAdapterRecyclerView.OnClickSelectedItem
             .defaulValuesFilter.split(",")
     }
 
-    override fun onClick(query: String) {
+    override fun onClick(query: String?) {
 
-        if("save" in query) homeViewModel.setArticle()
-        else {
-            val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
-            findNavController().navigate(passUrl)
+        query?.let {
+            if ("save" in query) homeViewModel.setArticle()
+            else {
+                val passUrl = HomeFragmentDirections.actionHomeFragmentToDeepLinkFragment(query)
+                findNavController().navigate(passUrl)
+            }
         }
+
     }
 }

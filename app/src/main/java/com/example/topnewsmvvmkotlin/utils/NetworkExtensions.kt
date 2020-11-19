@@ -14,9 +14,9 @@ import java.io.IOException
 suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
-): ResultWrapper<T> {
+): ResultWrapper<T> = //{
 
-    return withContext(dispatcher) {
+    //withContext(dispatcher) {
         try {
             val response = apiCall.invoke() // TAMBIEN -> val response = apiCall()
             if (response is Response && !response.isSuccessful) {
@@ -25,18 +25,19 @@ suspend fun <T> safeApiCall(
 
         } catch (throwable: Throwable) {
             when (throwable) {
-                is IOException -> ResultWrapper.GenericError(null, "Error")
+                is IOException -> ResultWrapper.GenericError(null, "I/O Error: ${throwable.message}")
                 is HttpException -> ResultWrapper.NetworkError(throwable)
-                else -> ResultWrapper.GenericError(null, "Error")
+                else -> ResultWrapper.GenericError(null, "Error: ${throwable.message}")
             }
         }
-    }
-}
+    //}
+//}
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()
     data class GenericError(val code: Int? = null, val error: String? = null) :
         ResultWrapper<Nothing>()
+
     data class NetworkError(val throwable: HttpException) : ResultWrapper<Nothing>()
 }
 

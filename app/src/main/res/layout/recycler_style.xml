@@ -12,17 +12,17 @@
     android:layout_height="wrap_content"
     android:padding="4dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/urlToImage"
         android:layout_width="172dp"
         android:layout_height="150dp"
-        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tool:srcCompat="@tools:sample/backgrounds/scenic" />
+        tool:srcCompat="@drawable/diarynews_image" />
 
     <TextView
-        android:id="@+id/article_id"
+        android:id="@+id/articleId"
         android:layout_width="86dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/urlToImage"
@@ -38,7 +38,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/urlToImage"
         app:layout_constraintStart_toStartOf="@+id/urlToImage"
         app:layout_constraintTop_toTopOf="@+id/urlToImage"
-        app:layout_constraintVertical_bias="0.0"
         tool:text="ID" />
 
     <TextView
@@ -55,7 +54,7 @@
         android:textSize="10sp"
         android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/article_id"
+        app:layout_constraintStart_toEndOf="@+id/articleId"
         app:layout_constraintTop_toTopOf="@+id/urlToImage"
         tool:text="Name" />
 

@@ -5,7 +5,7 @@
     android:id="@+id/textviewValuesFilters"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:drawableStart="@drawable/ic_launcher_foreground"
+    android:drawableStart="@drawable/language_icon"
     android:ellipsize="marquee"
     android:paddingLeft="@dimen/padding_scrollview"
     android:paddingRight="@dimen/padding_scrollview"
